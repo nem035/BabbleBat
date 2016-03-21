@@ -10,7 +10,7 @@ const {
   extractFirstItemValue
 } = require(joinPaths(__dirname, 'helpers'));
 
-module.exports = function(config, db) {
+module.exports = function(app, config, db) {
   
   const {
     methods : dbMethods,
@@ -77,6 +77,6 @@ module.exports = function(config, db) {
     });
   }
   
-  setupSocialStrategy(config, authProcessorCallback);
+  setupSocialStrategy(app, config, authProcessorCallback);
 }
 

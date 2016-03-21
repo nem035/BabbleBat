@@ -8,6 +8,8 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/font-awesome.min.css">
   <script type="text/javascript" src="javascripts/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="javascripts/bootstrap-3.3.6.min.js"></script>
+  <script type="text/javascript" src="javascripts/socket.io-1.4.5.min.js"></script>
+  <script type="text/javascript" src="babel.min.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-default">
@@ -21,15 +23,32 @@
         </button>
         <a class="navbar-brand" href="/">{{appTitle}}</a>
       </div>
-
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         
         {{#if user}}
           <ul class="nav navbar-nav navbar-right animated fadeIn">
-            <li>
-              <a href="/logout">
-                <i class="fa fa-fw fa-sign-out"></i> Logout
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <img class="navbar-avatar" src={{user.avatar}} alt="Profile Picture">
+                <span class="caret"></span>
               </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/rooms">
+                    <i class="fa fa-fw fa-comments"></i> Rooms
+                  </a>
+                </li>
+                <li>
+                  <a href="/profile">
+                    <i class="fa fa-fw fa-user"></i> Profile
+                  </a>
+                </li>
+                <li>
+                  <a href="/logout">
+                    <i class="fa fa-fw fa-sign-out"></i> Logout
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         {{/if}}
@@ -39,6 +58,6 @@
   <div id="container-main" class="container-fluid">
     {{{body}}}
   </div>
-
+  <script type="text/javascript" src="/javascripts/clean-url.min.js"></script>
 </body>
 </html>

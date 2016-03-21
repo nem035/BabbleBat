@@ -6,7 +6,8 @@ module.exports = function(Mongoose) {
   const schema = {
     name   : String,
     avatar : String,
-    email  : String
+    email  : String,
+    rooms  : Array
   };
   authProviders.forEach(p => {
     schema[p] = {

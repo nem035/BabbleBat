@@ -1,25 +1,29 @@
 'use strict';
 
-const flattenObject = function(ob) {
-	const toReturn = {};
+const flattenObject = (obj) => {
+  const flatten = {};
 	
-	for (let i in ob) {
-		if (!ob.hasOwnProperty(i)) continue;
+  for (let p in obj) {
+    if (!obj.hasOwnProperty(p)) continue;
 		
-		if ((typeof ob[i]) == 'object') {
-			let flatObject = flattenObject(ob[i]);
-			for (let x in flatObject) {
-				if (!flatObject.hasOwnProperty(x)) continue;
-				
-				toReturn[i + '.' + x] = flatObject[x];
-			}
-		} else {
-			toReturn[i] = ob[i];
-		}
-	}
-	return toReturn;
+    if ((typeof obj[p]) == 'object') {
+      let flat = flattenObject(obj[p]);
+      for (let q in flat) {
+        if (!flat.hasOwnProperty(q)) continue;
+        flatten[`${p}.${q}`] = flat[q];
+      }
+    } else {
+      flatten[p] = obj[p];
+    }
+  }
+  return flatten;
+};
+
+const randomHex = () => {
+  return require('crypto').randomBytes(24).toString('hex');
 };
 
 module.exports = {
-  flattenObject
+  flattenObject,
+  randomHex
 };

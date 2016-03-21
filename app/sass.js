@@ -2,8 +2,6 @@
 
 // setup sass
 const sass                      = require('node-sass-middleware');
-const { static : staticAssets } = require('express');
-const { join   : joinPaths }    = require('path');
 
 module.exports = function(app) {
   
@@ -15,5 +13,4 @@ module.exports = function(app) {
     request     : false,
     outputStyle : isDevelopment ? 'extended' : 'compressed'
   }));
-  app.use(staticAssets(app.get('STATIC_DIR')));
 };

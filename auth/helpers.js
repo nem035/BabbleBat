@@ -36,13 +36,15 @@ const buildCreateQuery = (provider, data) => {
   return createQuery;
 }
 
-const setupSocialStrategy = (config, authProcessorCb) => {
+const setupSocialStrategy = (app, config, authProcessorCb) => {
   const socialCfgs = _.pick(config, authProviders);
   
   _.forEach(socialCfgs, (cfg, name) => {
     const Strategy = require(`passport-${name}`).Strategy;
     passport.use(new Strategy(cfg, authProcessorCb));
   });
+  
+  app.set('authProviders', authProviders);
 }
 
 const isNonEmptyArray = x => _.isArray(x) && x.length > 0;

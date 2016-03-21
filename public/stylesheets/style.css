@@ -4269,13 +4269,13 @@ a.label:hover, a.label:focus {
   .btn-group-xs > .btn .badge {
     top: 0;
     padding: 1px 5px; }
-  .list-group-item.active > .badge,
+  .list-group-item.active > .badge, .active.room-list-group-item > .badge,
   .nav-pills > .active > a > .badge {
     color: #2C3E50;
     background-color: #fff; }
-  .list-group-item > .badge {
+  .list-group-item > .badge, .room-list-group-item > .badge {
     float: right; }
-  .list-group-item > .badge + .badge {
+  .list-group-item > .badge + .badge, .room-list-group-item > .badge + .badge {
     margin-right: 5px; }
   .nav-pills > li > a > .badge {
     margin-left: 3px; }
@@ -4535,61 +4535,64 @@ a.thumbnail.active {
   margin-bottom: 20px;
   padding-left: 0; }
 
-.list-group-item {
+.list-group-item, .room-list-group-item {
   position: relative;
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
   border: 1px solid #ecf0f1; }
-  .list-group-item:first-child {
+  .list-group-item:first-child, .room-list-group-item:first-child {
     border-top-right-radius: 4px;
     border-top-left-radius: 4px; }
-  .list-group-item:last-child {
+  .list-group-item:last-child, .room-list-group-item:last-child {
     margin-bottom: 0;
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px; }
 
-a.list-group-item,
-button.list-group-item {
+a.list-group-item, a.room-list-group-item,
+button.list-group-item,
+button.room-list-group-item {
   color: #555; }
-  a.list-group-item .list-group-item-heading,
-  button.list-group-item .list-group-item-heading {
+  a.list-group-item .list-group-item-heading, a.room-list-group-item .list-group-item-heading,
+  button.list-group-item .list-group-item-heading, button.room-list-group-item .list-group-item-heading {
     color: #333; }
-  a.list-group-item:hover, a.list-group-item:focus,
+  a.list-group-item:hover, a.room-list-group-item:hover, a.list-group-item:focus, a.room-list-group-item:focus,
   button.list-group-item:hover,
-  button.list-group-item:focus {
+  button.room-list-group-item:hover,
+  button.list-group-item:focus,
+  button.room-list-group-item:focus {
     text-decoration: none;
     color: #555;
     background-color: #ecf0f1; }
 
-button.list-group-item {
+button.list-group-item, button.room-list-group-item {
   width: 100%;
   text-align: left; }
 
-.list-group-item.disabled, .list-group-item.disabled:hover, .list-group-item.disabled:focus {
+.list-group-item.disabled, .disabled.room-list-group-item, .list-group-item.disabled:hover, .disabled.room-list-group-item:hover, .list-group-item.disabled:focus, .disabled.room-list-group-item:focus {
   background-color: #ecf0f1;
   color: #b4bcc2;
   cursor: not-allowed; }
-  .list-group-item.disabled .list-group-item-heading, .list-group-item.disabled:hover .list-group-item-heading, .list-group-item.disabled:focus .list-group-item-heading {
+  .list-group-item.disabled .list-group-item-heading, .disabled.room-list-group-item .list-group-item-heading, .list-group-item.disabled:hover .list-group-item-heading, .disabled.room-list-group-item:hover .list-group-item-heading, .list-group-item.disabled:focus .list-group-item-heading, .disabled.room-list-group-item:focus .list-group-item-heading {
     color: inherit; }
-  .list-group-item.disabled .list-group-item-text, .list-group-item.disabled:hover .list-group-item-text, .list-group-item.disabled:focus .list-group-item-text {
+  .list-group-item.disabled .list-group-item-text, .disabled.room-list-group-item .list-group-item-text, .list-group-item.disabled:hover .list-group-item-text, .disabled.room-list-group-item:hover .list-group-item-text, .list-group-item.disabled:focus .list-group-item-text, .disabled.room-list-group-item:focus .list-group-item-text {
     color: #b4bcc2; }
 
-.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+.list-group-item.active, .active.room-list-group-item, .list-group-item.active:hover, .active.room-list-group-item:hover, .list-group-item.active:focus, .active.room-list-group-item:focus {
   z-index: 2;
   color: #fff;
   background-color: #2C3E50;
   border-color: #2C3E50; }
-  .list-group-item.active .list-group-item-heading,
-  .list-group-item.active .list-group-item-heading > small,
-  .list-group-item.active .list-group-item-heading > .small, .list-group-item.active:hover .list-group-item-heading,
-  .list-group-item.active:hover .list-group-item-heading > small,
-  .list-group-item.active:hover .list-group-item-heading > .small, .list-group-item.active:focus .list-group-item-heading,
-  .list-group-item.active:focus .list-group-item-heading > small,
-  .list-group-item.active:focus .list-group-item-heading > .small {
+  .list-group-item.active .list-group-item-heading, .active.room-list-group-item .list-group-item-heading,
+  .list-group-item.active .list-group-item-heading > small, .active.room-list-group-item .list-group-item-heading > small,
+  .list-group-item.active .list-group-item-heading > .small, .active.room-list-group-item .list-group-item-heading > .small, .list-group-item.active:hover .list-group-item-heading, .active.room-list-group-item:hover .list-group-item-heading,
+  .list-group-item.active:hover .list-group-item-heading > small, .active.room-list-group-item:hover .list-group-item-heading > small,
+  .list-group-item.active:hover .list-group-item-heading > .small, .active.room-list-group-item:hover .list-group-item-heading > .small, .list-group-item.active:focus .list-group-item-heading, .active.room-list-group-item:focus .list-group-item-heading,
+  .list-group-item.active:focus .list-group-item-heading > small, .active.room-list-group-item:focus .list-group-item-heading > small,
+  .list-group-item.active:focus .list-group-item-heading > .small, .active.room-list-group-item:focus .list-group-item-heading > .small {
     color: inherit; }
-  .list-group-item.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text {
+  .list-group-item.active .list-group-item-text, .active.room-list-group-item .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .active.room-list-group-item:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text, .active.room-list-group-item:focus .list-group-item-text {
     color: #8aa4be; }
 
 .list-group-item-success {
@@ -4692,7 +4695,7 @@ button.list-group-item-danger {
   margin-bottom: 0;
   line-height: 1.3; }
 
-.panel {
+.panel, .card, body #container-main .login-form, .card-main {
   margin-bottom: 21px;
   background-color: #fff;
   border: 1px solid transparent;
@@ -4700,20 +4703,20 @@ button.list-group-item-danger {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
 
-.panel-body {
+.panel-body, .card-body {
   padding: 15px; }
-  .panel-body:before, .panel-body:after {
+  .panel-body:before, .card-body:before, .panel-body:after, .card-body:after {
     content: " ";
     display: table; }
-  .panel-body:after {
+  .panel-body:after, .card-body:after {
     clear: both; }
 
-.panel-heading {
+.panel-heading, .card-heading {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px; }
-  .panel-heading > .dropdown .dropdown-toggle {
+  .panel-heading > .dropdown .dropdown-toggle, .card-heading > .dropdown .dropdown-toggle {
     color: inherit; }
 
 .panel-title {
@@ -4728,270 +4731,277 @@ button.list-group-item-danger {
   .panel-title > .small > a {
     color: inherit; }
 
-.panel-footer {
+.panel-footer, .card-footer {
   padding: 10px 15px;
   background-color: #ecf0f1;
   border-top: 1px solid #ecf0f1;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px; }
 
-.panel > .list-group,
-.panel > .panel-collapse > .list-group {
+.panel > .list-group, .card > .list-group, body #container-main .login-form > .list-group, .card-main > .list-group,
+.panel > .panel-collapse > .list-group, .card > .panel-collapse > .list-group, body #container-main .login-form > .panel-collapse > .list-group, .card-main > .panel-collapse > .list-group {
   margin-bottom: 0; }
-  .panel > .list-group .list-group-item,
-  .panel > .panel-collapse > .list-group .list-group-item {
+  .panel > .list-group .list-group-item, .card > .list-group .list-group-item, body #container-main .login-form > .list-group .list-group-item, .card-main > .list-group .list-group-item, .panel > .list-group .room-list-group-item, .card > .list-group .room-list-group-item, body #container-main .login-form > .list-group .room-list-group-item, .card-main > .list-group .room-list-group-item,
+  .panel > .panel-collapse > .list-group .list-group-item, .card > .panel-collapse > .list-group .list-group-item, body #container-main .login-form > .panel-collapse > .list-group .list-group-item, .card-main > .panel-collapse > .list-group .list-group-item,
+  .panel > .panel-collapse > .list-group .room-list-group-item, .card > .panel-collapse > .list-group .room-list-group-item, body #container-main .login-form > .panel-collapse > .list-group .room-list-group-item, .card-main > .panel-collapse > .list-group .room-list-group-item {
     border-width: 1px 0;
     border-radius: 0; }
-  .panel > .list-group:first-child .list-group-item:first-child,
-  .panel > .panel-collapse > .list-group:first-child .list-group-item:first-child {
+  .panel > .list-group:first-child .list-group-item:first-child, .card > .list-group:first-child .list-group-item:first-child, body #container-main .login-form > .list-group:first-child .list-group-item:first-child, .card-main > .list-group:first-child .list-group-item:first-child, .panel > .list-group:first-child .room-list-group-item:first-child, .card > .list-group:first-child .room-list-group-item:first-child, body #container-main .login-form > .list-group:first-child .room-list-group-item:first-child, .card-main > .list-group:first-child .room-list-group-item:first-child,
+  .panel > .panel-collapse > .list-group:first-child .list-group-item:first-child, .card > .panel-collapse > .list-group:first-child .list-group-item:first-child, body #container-main .login-form > .panel-collapse > .list-group:first-child .list-group-item:first-child, .card-main > .panel-collapse > .list-group:first-child .list-group-item:first-child,
+  .panel > .panel-collapse > .list-group:first-child .room-list-group-item:first-child, .card > .panel-collapse > .list-group:first-child .room-list-group-item:first-child, body #container-main .login-form > .panel-collapse > .list-group:first-child .room-list-group-item:first-child, .card-main > .panel-collapse > .list-group:first-child .room-list-group-item:first-child {
     border-top: 0;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px; }
-  .panel > .list-group:last-child .list-group-item:last-child,
-  .panel > .panel-collapse > .list-group:last-child .list-group-item:last-child {
+  .panel > .list-group:last-child .list-group-item:last-child, .card > .list-group:last-child .list-group-item:last-child, body #container-main .login-form > .list-group:last-child .list-group-item:last-child, .card-main > .list-group:last-child .list-group-item:last-child, .panel > .list-group:last-child .room-list-group-item:last-child, .card > .list-group:last-child .room-list-group-item:last-child, body #container-main .login-form > .list-group:last-child .room-list-group-item:last-child, .card-main > .list-group:last-child .room-list-group-item:last-child,
+  .panel > .panel-collapse > .list-group:last-child .list-group-item:last-child, .card > .panel-collapse > .list-group:last-child .list-group-item:last-child, body #container-main .login-form > .panel-collapse > .list-group:last-child .list-group-item:last-child, .card-main > .panel-collapse > .list-group:last-child .list-group-item:last-child,
+  .panel > .panel-collapse > .list-group:last-child .room-list-group-item:last-child, .card > .panel-collapse > .list-group:last-child .room-list-group-item:last-child, body #container-main .login-form > .panel-collapse > .list-group:last-child .room-list-group-item:last-child, .card-main > .panel-collapse > .list-group:last-child .room-list-group-item:last-child {
     border-bottom: 0;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px; }
 
-.panel > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child {
+.panel > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child, .card > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child, body #container-main .login-form > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child, .card-main > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child, .panel > .card-heading + .panel-collapse > .list-group .list-group-item:first-child, .card > .card-heading + .panel-collapse > .list-group .list-group-item:first-child, body #container-main .login-form > .card-heading + .panel-collapse > .list-group .list-group-item:first-child, .card-main > .card-heading + .panel-collapse > .list-group .list-group-item:first-child, .panel > .panel-heading + .panel-collapse > .list-group .room-list-group-item:first-child, .card > .panel-heading + .panel-collapse > .list-group .room-list-group-item:first-child, body #container-main .login-form > .panel-heading + .panel-collapse > .list-group .room-list-group-item:first-child, .card-main > .panel-heading + .panel-collapse > .list-group .room-list-group-item:first-child, .panel > .card-heading + .panel-collapse > .list-group .room-list-group-item:first-child, .card > .card-heading + .panel-collapse > .list-group .room-list-group-item:first-child, body #container-main .login-form > .card-heading + .panel-collapse > .list-group .room-list-group-item:first-child, .card-main > .card-heading + .panel-collapse > .list-group .room-list-group-item:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0; }
 
-.panel-heading + .list-group .list-group-item:first-child {
+.panel-heading + .list-group .list-group-item:first-child, .card-heading + .list-group .list-group-item:first-child, .panel-heading + .list-group .room-list-group-item:first-child, .card-heading + .list-group .room-list-group-item:first-child {
   border-top-width: 0; }
 
-.list-group + .panel-footer {
+.list-group + .panel-footer, .list-group + .card-footer {
   border-top-width: 0; }
 
-.panel > .table,
-.panel > .table-responsive > .table,
-.panel > .panel-collapse > .table {
+.panel > .table, .card > .table, body #container-main .login-form > .table, .card-main > .table,
+.panel > .table-responsive > .table, .card > .table-responsive > .table, body #container-main .login-form > .table-responsive > .table, .card-main > .table-responsive > .table,
+.panel > .panel-collapse > .table, .card > .panel-collapse > .table, body #container-main .login-form > .panel-collapse > .table, .card-main > .panel-collapse > .table {
   margin-bottom: 0; }
-  .panel > .table caption,
-  .panel > .table-responsive > .table caption,
-  .panel > .panel-collapse > .table caption {
+  .panel > .table caption, .card > .table caption, body #container-main .login-form > .table caption, .card-main > .table caption,
+  .panel > .table-responsive > .table caption, .card > .table-responsive > .table caption, body #container-main .login-form > .table-responsive > .table caption, .card-main > .table-responsive > .table caption,
+  .panel > .panel-collapse > .table caption, .card > .panel-collapse > .table caption, body #container-main .login-form > .panel-collapse > .table caption, .card-main > .panel-collapse > .table caption {
     padding-left: 15px;
     padding-right: 15px; }
 
-.panel > .table:first-child,
-.panel > .table-responsive:first-child > .table:first-child {
+.panel > .table:first-child, .card > .table:first-child, body #container-main .login-form > .table:first-child, .card-main > .table:first-child,
+.panel > .table-responsive:first-child > .table:first-child, .card > .table-responsive:first-child > .table:first-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child, .card-main > .table-responsive:first-child > .table:first-child {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px; }
-  .panel > .table:first-child > thead:first-child > tr:first-child,
-  .panel > .table:first-child > tbody:first-child > tr:first-child,
-  .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,
-  .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child {
+  .panel > .table:first-child > thead:first-child > tr:first-child, .card > .table:first-child > thead:first-child > tr:first-child, body #container-main .login-form > .table:first-child > thead:first-child > tr:first-child, .card-main > .table:first-child > thead:first-child > tr:first-child,
+  .panel > .table:first-child > tbody:first-child > tr:first-child, .card > .table:first-child > tbody:first-child > tr:first-child, body #container-main .login-form > .table:first-child > tbody:first-child > tr:first-child, .card-main > .table:first-child > tbody:first-child > tr:first-child,
+  .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child, .card > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child, .card-main > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,
+  .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child, .card > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child, .card-main > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
-    .panel > .table:first-child > thead:first-child > tr:first-child td:first-child,
-    .panel > .table:first-child > thead:first-child > tr:first-child th:first-child,
-    .panel > .table:first-child > tbody:first-child > tr:first-child td:first-child,
-    .panel > .table:first-child > tbody:first-child > tr:first-child th:first-child,
-    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,
-    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,
-    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child,
-    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child {
+    .panel > .table:first-child > thead:first-child > tr:first-child td:first-child, .card > .table:first-child > thead:first-child > tr:first-child td:first-child, body #container-main .login-form > .table:first-child > thead:first-child > tr:first-child td:first-child, .card-main > .table:first-child > thead:first-child > tr:first-child td:first-child,
+    .panel > .table:first-child > thead:first-child > tr:first-child th:first-child, .card > .table:first-child > thead:first-child > tr:first-child th:first-child, body #container-main .login-form > .table:first-child > thead:first-child > tr:first-child th:first-child, .card-main > .table:first-child > thead:first-child > tr:first-child th:first-child,
+    .panel > .table:first-child > tbody:first-child > tr:first-child td:first-child, .card > .table:first-child > tbody:first-child > tr:first-child td:first-child, body #container-main .login-form > .table:first-child > tbody:first-child > tr:first-child td:first-child, .card-main > .table:first-child > tbody:first-child > tr:first-child td:first-child,
+    .panel > .table:first-child > tbody:first-child > tr:first-child th:first-child, .card > .table:first-child > tbody:first-child > tr:first-child th:first-child, body #container-main .login-form > .table:first-child > tbody:first-child > tr:first-child th:first-child, .card-main > .table:first-child > tbody:first-child > tr:first-child th:first-child,
+    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child, .card > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child, .card-main > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,
+    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child, .card > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child, .card-main > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,
+    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child, .card > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child, .card-main > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child,
+    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child, .card > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child, .card-main > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child {
       border-top-left-radius: 3px; }
-    .panel > .table:first-child > thead:first-child > tr:first-child td:last-child,
-    .panel > .table:first-child > thead:first-child > tr:first-child th:last-child,
-    .panel > .table:first-child > tbody:first-child > tr:first-child td:last-child,
-    .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child,
-    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child,
-    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,
-    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child,
-    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {
+    .panel > .table:first-child > thead:first-child > tr:first-child td:last-child, .card > .table:first-child > thead:first-child > tr:first-child td:last-child, body #container-main .login-form > .table:first-child > thead:first-child > tr:first-child td:last-child, .card-main > .table:first-child > thead:first-child > tr:first-child td:last-child,
+    .panel > .table:first-child > thead:first-child > tr:first-child th:last-child, .card > .table:first-child > thead:first-child > tr:first-child th:last-child, body #container-main .login-form > .table:first-child > thead:first-child > tr:first-child th:last-child, .card-main > .table:first-child > thead:first-child > tr:first-child th:last-child,
+    .panel > .table:first-child > tbody:first-child > tr:first-child td:last-child, .card > .table:first-child > tbody:first-child > tr:first-child td:last-child, body #container-main .login-form > .table:first-child > tbody:first-child > tr:first-child td:last-child, .card-main > .table:first-child > tbody:first-child > tr:first-child td:last-child,
+    .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child, .card > .table:first-child > tbody:first-child > tr:first-child th:last-child, body #container-main .login-form > .table:first-child > tbody:first-child > tr:first-child th:last-child, .card-main > .table:first-child > tbody:first-child > tr:first-child th:last-child,
+    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child, .card > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child, .card-main > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child,
+    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child, .card > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child, .card-main > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,
+    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child, .card > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child, .card-main > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child,
+    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child, .card > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child, body #container-main .login-form > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child, .card-main > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {
       border-top-right-radius: 3px; }
 
-.panel > .table:last-child,
-.panel > .table-responsive:last-child > .table:last-child {
+.panel > .table:last-child, .card > .table:last-child, body #container-main .login-form > .table:last-child, .card-main > .table:last-child,
+.panel > .table-responsive:last-child > .table:last-child, .card > .table-responsive:last-child > .table:last-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child, .card-main > .table-responsive:last-child > .table:last-child {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px; }
-  .panel > .table:last-child > tbody:last-child > tr:last-child,
-  .panel > .table:last-child > tfoot:last-child > tr:last-child,
-  .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,
-  .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child {
+  .panel > .table:last-child > tbody:last-child > tr:last-child, .card > .table:last-child > tbody:last-child > tr:last-child, body #container-main .login-form > .table:last-child > tbody:last-child > tr:last-child, .card-main > .table:last-child > tbody:last-child > tr:last-child,
+  .panel > .table:last-child > tfoot:last-child > tr:last-child, .card > .table:last-child > tfoot:last-child > tr:last-child, body #container-main .login-form > .table:last-child > tfoot:last-child > tr:last-child, .card-main > .table:last-child > tfoot:last-child > tr:last-child,
+  .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child, .card > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child, .card-main > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,
+  .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child, .card > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child, .card-main > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px; }
-    .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child,
-    .panel > .table:last-child > tbody:last-child > tr:last-child th:first-child,
-    .panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
-    .panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
-    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,
-    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,
-    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
-    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child {
+    .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child, .card > .table:last-child > tbody:last-child > tr:last-child td:first-child, body #container-main .login-form > .table:last-child > tbody:last-child > tr:last-child td:first-child, .card-main > .table:last-child > tbody:last-child > tr:last-child td:first-child,
+    .panel > .table:last-child > tbody:last-child > tr:last-child th:first-child, .card > .table:last-child > tbody:last-child > tr:last-child th:first-child, body #container-main .login-form > .table:last-child > tbody:last-child > tr:last-child th:first-child, .card-main > .table:last-child > tbody:last-child > tr:last-child th:first-child,
+    .panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child, .card > .table:last-child > tfoot:last-child > tr:last-child td:first-child, body #container-main .login-form > .table:last-child > tfoot:last-child > tr:last-child td:first-child, .card-main > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
+    .panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child, .card > .table:last-child > tfoot:last-child > tr:last-child th:first-child, body #container-main .login-form > .table:last-child > tfoot:last-child > tr:last-child th:first-child, .card-main > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
+    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child, .card > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child, .card-main > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,
+    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child, .card > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child, .card-main > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,
+    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child, .card > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child, .card-main > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
+    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child, .card > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child, .card-main > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child {
       border-bottom-left-radius: 3px; }
-    .panel > .table:last-child > tbody:last-child > tr:last-child td:last-child,
-    .panel > .table:last-child > tbody:last-child > tr:last-child th:last-child,
-    .panel > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
-    .panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
-    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child,
-    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,
-    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
-    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child {
+    .panel > .table:last-child > tbody:last-child > tr:last-child td:last-child, .card > .table:last-child > tbody:last-child > tr:last-child td:last-child, body #container-main .login-form > .table:last-child > tbody:last-child > tr:last-child td:last-child, .card-main > .table:last-child > tbody:last-child > tr:last-child td:last-child,
+    .panel > .table:last-child > tbody:last-child > tr:last-child th:last-child, .card > .table:last-child > tbody:last-child > tr:last-child th:last-child, body #container-main .login-form > .table:last-child > tbody:last-child > tr:last-child th:last-child, .card-main > .table:last-child > tbody:last-child > tr:last-child th:last-child,
+    .panel > .table:last-child > tfoot:last-child > tr:last-child td:last-child, .card > .table:last-child > tfoot:last-child > tr:last-child td:last-child, body #container-main .login-form > .table:last-child > tfoot:last-child > tr:last-child td:last-child, .card-main > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
+    .panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child, .card > .table:last-child > tfoot:last-child > tr:last-child th:last-child, body #container-main .login-form > .table:last-child > tfoot:last-child > tr:last-child th:last-child, .card-main > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
+    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child, .card > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child, .card-main > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child,
+    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child, .card > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child, .card-main > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,
+    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child, .card > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child, .card-main > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
+    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child, .card > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child, body #container-main .login-form > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child, .card-main > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child {
       border-bottom-right-radius: 3px; }
 
-.panel > .panel-body + .table,
-.panel > .panel-body + .table-responsive,
-.panel > .table + .panel-body,
-.panel > .table-responsive + .panel-body {
+.panel > .panel-body + .table, .card > .panel-body + .table, body #container-main .login-form > .panel-body + .table, .card-main > .panel-body + .table, .panel > .card-body + .table, .card > .card-body + .table, body #container-main .login-form > .card-body + .table, .card-main > .card-body + .table,
+.panel > .panel-body + .table-responsive, .card > .panel-body + .table-responsive, body #container-main .login-form > .panel-body + .table-responsive, .card-main > .panel-body + .table-responsive,
+.panel > .card-body + .table-responsive, .card > .card-body + .table-responsive, body #container-main .login-form > .card-body + .table-responsive, .card-main > .card-body + .table-responsive,
+.panel > .table + .panel-body, .card > .table + .panel-body, body #container-main .login-form > .table + .panel-body, .card-main > .table + .panel-body,
+.panel > .table + .card-body, .card > .table + .card-body, body #container-main .login-form > .table + .card-body, .card-main > .table + .card-body,
+.panel > .table-responsive + .panel-body, .card > .table-responsive + .panel-body, body #container-main .login-form > .table-responsive + .panel-body, .card-main > .table-responsive + .panel-body,
+.panel > .table-responsive + .card-body, .card > .table-responsive + .card-body, body #container-main .login-form > .table-responsive + .card-body, .card-main > .table-responsive + .card-body {
   border-top: 1px solid #ecf0f1; }
 
-.panel > .table > tbody:first-child > tr:first-child th,
-.panel > .table > tbody:first-child > tr:first-child td {
+.panel > .table > tbody:first-child > tr:first-child th, .card > .table > tbody:first-child > tr:first-child th, body #container-main .login-form > .table > tbody:first-child > tr:first-child th, .card-main > .table > tbody:first-child > tr:first-child th,
+.panel > .table > tbody:first-child > tr:first-child td, .card > .table > tbody:first-child > tr:first-child td, body #container-main .login-form > .table > tbody:first-child > tr:first-child td, .card-main > .table > tbody:first-child > tr:first-child td {
   border-top: 0; }
 
-.panel > .table-bordered,
-.panel > .table-responsive > .table-bordered {
+.panel > .table-bordered, .card > .table-bordered, body #container-main .login-form > .table-bordered, .card-main > .table-bordered,
+.panel > .table-responsive > .table-bordered, .card > .table-responsive > .table-bordered, body #container-main .login-form > .table-responsive > .table-bordered, .card-main > .table-responsive > .table-bordered {
   border: 0; }
-  .panel > .table-bordered > thead > tr > th:first-child,
-  .panel > .table-bordered > thead > tr > td:first-child,
-  .panel > .table-bordered > tbody > tr > th:first-child,
-  .panel > .table-bordered > tbody > tr > td:first-child,
-  .panel > .table-bordered > tfoot > tr > th:first-child,
-  .panel > .table-bordered > tfoot > tr > td:first-child,
-  .panel > .table-responsive > .table-bordered > thead > tr > th:first-child,
-  .panel > .table-responsive > .table-bordered > thead > tr > td:first-child,
-  .panel > .table-responsive > .table-bordered > tbody > tr > th:first-child,
-  .panel > .table-responsive > .table-bordered > tbody > tr > td:first-child,
-  .panel > .table-responsive > .table-bordered > tfoot > tr > th:first-child,
-  .panel > .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+  .panel > .table-bordered > thead > tr > th:first-child, .card > .table-bordered > thead > tr > th:first-child, body #container-main .login-form > .table-bordered > thead > tr > th:first-child, .card-main > .table-bordered > thead > tr > th:first-child,
+  .panel > .table-bordered > thead > tr > td:first-child, .card > .table-bordered > thead > tr > td:first-child, body #container-main .login-form > .table-bordered > thead > tr > td:first-child, .card-main > .table-bordered > thead > tr > td:first-child,
+  .panel > .table-bordered > tbody > tr > th:first-child, .card > .table-bordered > tbody > tr > th:first-child, body #container-main .login-form > .table-bordered > tbody > tr > th:first-child, .card-main > .table-bordered > tbody > tr > th:first-child,
+  .panel > .table-bordered > tbody > tr > td:first-child, .card > .table-bordered > tbody > tr > td:first-child, body #container-main .login-form > .table-bordered > tbody > tr > td:first-child, .card-main > .table-bordered > tbody > tr > td:first-child,
+  .panel > .table-bordered > tfoot > tr > th:first-child, .card > .table-bordered > tfoot > tr > th:first-child, body #container-main .login-form > .table-bordered > tfoot > tr > th:first-child, .card-main > .table-bordered > tfoot > tr > th:first-child,
+  .panel > .table-bordered > tfoot > tr > td:first-child, .card > .table-bordered > tfoot > tr > td:first-child, body #container-main .login-form > .table-bordered > tfoot > tr > td:first-child, .card-main > .table-bordered > tfoot > tr > td:first-child,
+  .panel > .table-responsive > .table-bordered > thead > tr > th:first-child, .card > .table-responsive > .table-bordered > thead > tr > th:first-child, body #container-main .login-form > .table-responsive > .table-bordered > thead > tr > th:first-child, .card-main > .table-responsive > .table-bordered > thead > tr > th:first-child,
+  .panel > .table-responsive > .table-bordered > thead > tr > td:first-child, .card > .table-responsive > .table-bordered > thead > tr > td:first-child, body #container-main .login-form > .table-responsive > .table-bordered > thead > tr > td:first-child, .card-main > .table-responsive > .table-bordered > thead > tr > td:first-child,
+  .panel > .table-responsive > .table-bordered > tbody > tr > th:first-child, .card > .table-responsive > .table-bordered > tbody > tr > th:first-child, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr > th:first-child, .card-main > .table-responsive > .table-bordered > tbody > tr > th:first-child,
+  .panel > .table-responsive > .table-bordered > tbody > tr > td:first-child, .card > .table-responsive > .table-bordered > tbody > tr > td:first-child, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr > td:first-child, .card-main > .table-responsive > .table-bordered > tbody > tr > td:first-child,
+  .panel > .table-responsive > .table-bordered > tfoot > tr > th:first-child, .card > .table-responsive > .table-bordered > tfoot > tr > th:first-child, body #container-main .login-form > .table-responsive > .table-bordered > tfoot > tr > th:first-child, .card-main > .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+  .panel > .table-responsive > .table-bordered > tfoot > tr > td:first-child, .card > .table-responsive > .table-bordered > tfoot > tr > td:first-child, body #container-main .login-form > .table-responsive > .table-bordered > tfoot > tr > td:first-child, .card-main > .table-responsive > .table-bordered > tfoot > tr > td:first-child {
     border-left: 0; }
-  .panel > .table-bordered > thead > tr > th:last-child,
-  .panel > .table-bordered > thead > tr > td:last-child,
-  .panel > .table-bordered > tbody > tr > th:last-child,
-  .panel > .table-bordered > tbody > tr > td:last-child,
-  .panel > .table-bordered > tfoot > tr > th:last-child,
-  .panel > .table-bordered > tfoot > tr > td:last-child,
-  .panel > .table-responsive > .table-bordered > thead > tr > th:last-child,
-  .panel > .table-responsive > .table-bordered > thead > tr > td:last-child,
-  .panel > .table-responsive > .table-bordered > tbody > tr > th:last-child,
-  .panel > .table-responsive > .table-bordered > tbody > tr > td:last-child,
-  .panel > .table-responsive > .table-bordered > tfoot > tr > th:last-child,
-  .panel > .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+  .panel > .table-bordered > thead > tr > th:last-child, .card > .table-bordered > thead > tr > th:last-child, body #container-main .login-form > .table-bordered > thead > tr > th:last-child, .card-main > .table-bordered > thead > tr > th:last-child,
+  .panel > .table-bordered > thead > tr > td:last-child, .card > .table-bordered > thead > tr > td:last-child, body #container-main .login-form > .table-bordered > thead > tr > td:last-child, .card-main > .table-bordered > thead > tr > td:last-child,
+  .panel > .table-bordered > tbody > tr > th:last-child, .card > .table-bordered > tbody > tr > th:last-child, body #container-main .login-form > .table-bordered > tbody > tr > th:last-child, .card-main > .table-bordered > tbody > tr > th:last-child,
+  .panel > .table-bordered > tbody > tr > td:last-child, .card > .table-bordered > tbody > tr > td:last-child, body #container-main .login-form > .table-bordered > tbody > tr > td:last-child, .card-main > .table-bordered > tbody > tr > td:last-child,
+  .panel > .table-bordered > tfoot > tr > th:last-child, .card > .table-bordered > tfoot > tr > th:last-child, body #container-main .login-form > .table-bordered > tfoot > tr > th:last-child, .card-main > .table-bordered > tfoot > tr > th:last-child,
+  .panel > .table-bordered > tfoot > tr > td:last-child, .card > .table-bordered > tfoot > tr > td:last-child, body #container-main .login-form > .table-bordered > tfoot > tr > td:last-child, .card-main > .table-bordered > tfoot > tr > td:last-child,
+  .panel > .table-responsive > .table-bordered > thead > tr > th:last-child, .card > .table-responsive > .table-bordered > thead > tr > th:last-child, body #container-main .login-form > .table-responsive > .table-bordered > thead > tr > th:last-child, .card-main > .table-responsive > .table-bordered > thead > tr > th:last-child,
+  .panel > .table-responsive > .table-bordered > thead > tr > td:last-child, .card > .table-responsive > .table-bordered > thead > tr > td:last-child, body #container-main .login-form > .table-responsive > .table-bordered > thead > tr > td:last-child, .card-main > .table-responsive > .table-bordered > thead > tr > td:last-child,
+  .panel > .table-responsive > .table-bordered > tbody > tr > th:last-child, .card > .table-responsive > .table-bordered > tbody > tr > th:last-child, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr > th:last-child, .card-main > .table-responsive > .table-bordered > tbody > tr > th:last-child,
+  .panel > .table-responsive > .table-bordered > tbody > tr > td:last-child, .card > .table-responsive > .table-bordered > tbody > tr > td:last-child, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr > td:last-child, .card-main > .table-responsive > .table-bordered > tbody > tr > td:last-child,
+  .panel > .table-responsive > .table-bordered > tfoot > tr > th:last-child, .card > .table-responsive > .table-bordered > tfoot > tr > th:last-child, body #container-main .login-form > .table-responsive > .table-bordered > tfoot > tr > th:last-child, .card-main > .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+  .panel > .table-responsive > .table-bordered > tfoot > tr > td:last-child, .card > .table-responsive > .table-bordered > tfoot > tr > td:last-child, body #container-main .login-form > .table-responsive > .table-bordered > tfoot > tr > td:last-child, .card-main > .table-responsive > .table-bordered > tfoot > tr > td:last-child {
     border-right: 0; }
-  .panel > .table-bordered > thead > tr:first-child > td,
-  .panel > .table-bordered > thead > tr:first-child > th,
-  .panel > .table-bordered > tbody > tr:first-child > td,
-  .panel > .table-bordered > tbody > tr:first-child > th,
-  .panel > .table-responsive > .table-bordered > thead > tr:first-child > td,
-  .panel > .table-responsive > .table-bordered > thead > tr:first-child > th,
-  .panel > .table-responsive > .table-bordered > tbody > tr:first-child > td,
-  .panel > .table-responsive > .table-bordered > tbody > tr:first-child > th {
+  .panel > .table-bordered > thead > tr:first-child > td, .card > .table-bordered > thead > tr:first-child > td, body #container-main .login-form > .table-bordered > thead > tr:first-child > td, .card-main > .table-bordered > thead > tr:first-child > td,
+  .panel > .table-bordered > thead > tr:first-child > th, .card > .table-bordered > thead > tr:first-child > th, body #container-main .login-form > .table-bordered > thead > tr:first-child > th, .card-main > .table-bordered > thead > tr:first-child > th,
+  .panel > .table-bordered > tbody > tr:first-child > td, .card > .table-bordered > tbody > tr:first-child > td, body #container-main .login-form > .table-bordered > tbody > tr:first-child > td, .card-main > .table-bordered > tbody > tr:first-child > td,
+  .panel > .table-bordered > tbody > tr:first-child > th, .card > .table-bordered > tbody > tr:first-child > th, body #container-main .login-form > .table-bordered > tbody > tr:first-child > th, .card-main > .table-bordered > tbody > tr:first-child > th,
+  .panel > .table-responsive > .table-bordered > thead > tr:first-child > td, .card > .table-responsive > .table-bordered > thead > tr:first-child > td, body #container-main .login-form > .table-responsive > .table-bordered > thead > tr:first-child > td, .card-main > .table-responsive > .table-bordered > thead > tr:first-child > td,
+  .panel > .table-responsive > .table-bordered > thead > tr:first-child > th, .card > .table-responsive > .table-bordered > thead > tr:first-child > th, body #container-main .login-form > .table-responsive > .table-bordered > thead > tr:first-child > th, .card-main > .table-responsive > .table-bordered > thead > tr:first-child > th,
+  .panel > .table-responsive > .table-bordered > tbody > tr:first-child > td, .card > .table-responsive > .table-bordered > tbody > tr:first-child > td, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr:first-child > td, .card-main > .table-responsive > .table-bordered > tbody > tr:first-child > td,
+  .panel > .table-responsive > .table-bordered > tbody > tr:first-child > th, .card > .table-responsive > .table-bordered > tbody > tr:first-child > th, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr:first-child > th, .card-main > .table-responsive > .table-bordered > tbody > tr:first-child > th {
     border-bottom: 0; }
-  .panel > .table-bordered > tbody > tr:last-child > td,
-  .panel > .table-bordered > tbody > tr:last-child > th,
-  .panel > .table-bordered > tfoot > tr:last-child > td,
-  .panel > .table-bordered > tfoot > tr:last-child > th,
-  .panel > .table-responsive > .table-bordered > tbody > tr:last-child > td,
-  .panel > .table-responsive > .table-bordered > tbody > tr:last-child > th,
-  .panel > .table-responsive > .table-bordered > tfoot > tr:last-child > td,
-  .panel > .table-responsive > .table-bordered > tfoot > tr:last-child > th {
+  .panel > .table-bordered > tbody > tr:last-child > td, .card > .table-bordered > tbody > tr:last-child > td, body #container-main .login-form > .table-bordered > tbody > tr:last-child > td, .card-main > .table-bordered > tbody > tr:last-child > td,
+  .panel > .table-bordered > tbody > tr:last-child > th, .card > .table-bordered > tbody > tr:last-child > th, body #container-main .login-form > .table-bordered > tbody > tr:last-child > th, .card-main > .table-bordered > tbody > tr:last-child > th,
+  .panel > .table-bordered > tfoot > tr:last-child > td, .card > .table-bordered > tfoot > tr:last-child > td, body #container-main .login-form > .table-bordered > tfoot > tr:last-child > td, .card-main > .table-bordered > tfoot > tr:last-child > td,
+  .panel > .table-bordered > tfoot > tr:last-child > th, .card > .table-bordered > tfoot > tr:last-child > th, body #container-main .login-form > .table-bordered > tfoot > tr:last-child > th, .card-main > .table-bordered > tfoot > tr:last-child > th,
+  .panel > .table-responsive > .table-bordered > tbody > tr:last-child > td, .card > .table-responsive > .table-bordered > tbody > tr:last-child > td, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr:last-child > td, .card-main > .table-responsive > .table-bordered > tbody > tr:last-child > td,
+  .panel > .table-responsive > .table-bordered > tbody > tr:last-child > th, .card > .table-responsive > .table-bordered > tbody > tr:last-child > th, body #container-main .login-form > .table-responsive > .table-bordered > tbody > tr:last-child > th, .card-main > .table-responsive > .table-bordered > tbody > tr:last-child > th,
+  .panel > .table-responsive > .table-bordered > tfoot > tr:last-child > td, .card > .table-responsive > .table-bordered > tfoot > tr:last-child > td, body #container-main .login-form > .table-responsive > .table-bordered > tfoot > tr:last-child > td, .card-main > .table-responsive > .table-bordered > tfoot > tr:last-child > td,
+  .panel > .table-responsive > .table-bordered > tfoot > tr:last-child > th, .card > .table-responsive > .table-bordered > tfoot > tr:last-child > th, body #container-main .login-form > .table-responsive > .table-bordered > tfoot > tr:last-child > th, .card-main > .table-responsive > .table-bordered > tfoot > tr:last-child > th {
     border-bottom: 0; }
 
-.panel > .table-responsive {
+.panel > .table-responsive, .card > .table-responsive, body #container-main .login-form > .table-responsive, .card-main > .table-responsive {
   border: 0;
   margin-bottom: 0; }
 
 .panel-group {
   margin-bottom: 21px; }
-  .panel-group .panel {
+  .panel-group .panel, .panel-group .card, .panel-group body #container-main .login-form, body #container-main .panel-group .login-form, .panel-group .card-main {
     margin-bottom: 0;
     border-radius: 4px; }
-    .panel-group .panel + .panel {
+    .panel-group .panel + .panel, .panel-group .card + .panel, .panel-group body #container-main .login-form + .panel, body #container-main .panel-group .login-form + .panel, .panel-group .card-main + .panel, .panel-group .panel + .card, .panel-group .card + .card, .panel-group body #container-main .login-form + .card, body #container-main .panel-group .login-form + .card, .panel-group .card-main + .card, .panel-group body #container-main .panel + .login-form, body #container-main .panel-group .panel + .login-form, .panel-group body #container-main .card + .login-form, body #container-main .panel-group .card + .login-form, .panel-group body #container-main .login-form + .login-form, body #container-main .panel-group .login-form + .login-form, .panel-group body #container-main .card-main + .login-form, body #container-main .panel-group .card-main + .login-form, .panel-group .panel + .card-main, .panel-group .card + .card-main, .panel-group body #container-main .login-form + .card-main, body #container-main .panel-group .login-form + .card-main, .panel-group .card-main + .card-main {
       margin-top: 5px; }
-  .panel-group .panel-heading {
+  .panel-group .panel-heading, .panel-group .card-heading {
     border-bottom: 0; }
-    .panel-group .panel-heading + .panel-collapse > .panel-body,
-    .panel-group .panel-heading + .panel-collapse > .list-group {
+    .panel-group .panel-heading + .panel-collapse > .panel-body, .panel-group .card-heading + .panel-collapse > .panel-body, .panel-group .panel-heading + .panel-collapse > .card-body, .panel-group .card-heading + .panel-collapse > .card-body,
+    .panel-group .panel-heading + .panel-collapse > .list-group,
+    .panel-group .card-heading + .panel-collapse > .list-group {
       border-top: 1px solid #ecf0f1; }
-  .panel-group .panel-footer {
+  .panel-group .panel-footer, .panel-group .card-footer {
     border-top: 0; }
-    .panel-group .panel-footer + .panel-collapse .panel-body {
+    .panel-group .panel-footer + .panel-collapse .panel-body, .panel-group .card-footer + .panel-collapse .panel-body, .panel-group .panel-footer + .panel-collapse .card-body, .panel-group .card-footer + .panel-collapse .card-body {
       border-bottom: 1px solid #ecf0f1; }
 
 .panel-default {
   border-color: #ecf0f1; }
-  .panel-default > .panel-heading {
+  .panel-default > .panel-heading, .panel-default > .card-heading {
     color: #2C3E50;
     background-color: #ecf0f1;
     border-color: #ecf0f1; }
-    .panel-default > .panel-heading + .panel-collapse > .panel-body {
+    .panel-default > .panel-heading + .panel-collapse > .panel-body, .panel-default > .card-heading + .panel-collapse > .panel-body, .panel-default > .panel-heading + .panel-collapse > .card-body, .panel-default > .card-heading + .panel-collapse > .card-body {
       border-top-color: #ecf0f1; }
-    .panel-default > .panel-heading .badge {
+    .panel-default > .panel-heading .badge, .panel-default > .card-heading .badge {
       color: #ecf0f1;
       background-color: #2C3E50; }
-  .panel-default > .panel-footer + .panel-collapse > .panel-body {
+  .panel-default > .panel-footer + .panel-collapse > .panel-body, .panel-default > .card-footer + .panel-collapse > .panel-body, .panel-default > .panel-footer + .panel-collapse > .card-body, .panel-default > .card-footer + .panel-collapse > .card-body {
     border-bottom-color: #ecf0f1; }
 
 .panel-primary {
   border-color: #2C3E50; }
-  .panel-primary > .panel-heading {
+  .panel-primary > .panel-heading, .panel-primary > .card-heading {
     color: #fff;
     background-color: #2C3E50;
     border-color: #2C3E50; }
-    .panel-primary > .panel-heading + .panel-collapse > .panel-body {
+    .panel-primary > .panel-heading + .panel-collapse > .panel-body, .panel-primary > .card-heading + .panel-collapse > .panel-body, .panel-primary > .panel-heading + .panel-collapse > .card-body, .panel-primary > .card-heading + .panel-collapse > .card-body {
       border-top-color: #2C3E50; }
-    .panel-primary > .panel-heading .badge {
+    .panel-primary > .panel-heading .badge, .panel-primary > .card-heading .badge {
       color: #2C3E50;
       background-color: #fff; }
-  .panel-primary > .panel-footer + .panel-collapse > .panel-body {
+  .panel-primary > .panel-footer + .panel-collapse > .panel-body, .panel-primary > .card-footer + .panel-collapse > .panel-body, .panel-primary > .panel-footer + .panel-collapse > .card-body, .panel-primary > .card-footer + .panel-collapse > .card-body {
     border-bottom-color: #2C3E50; }
 
 .panel-success {
   border-color: #18BC9C; }
-  .panel-success > .panel-heading {
+  .panel-success > .panel-heading, .panel-success > .card-heading {
     color: #fff;
     background-color: #18BC9C;
     border-color: #18BC9C; }
-    .panel-success > .panel-heading + .panel-collapse > .panel-body {
+    .panel-success > .panel-heading + .panel-collapse > .panel-body, .panel-success > .card-heading + .panel-collapse > .panel-body, .panel-success > .panel-heading + .panel-collapse > .card-body, .panel-success > .card-heading + .panel-collapse > .card-body {
       border-top-color: #18BC9C; }
-    .panel-success > .panel-heading .badge {
+    .panel-success > .panel-heading .badge, .panel-success > .card-heading .badge {
       color: #18BC9C;
       background-color: #fff; }
-  .panel-success > .panel-footer + .panel-collapse > .panel-body {
+  .panel-success > .panel-footer + .panel-collapse > .panel-body, .panel-success > .card-footer + .panel-collapse > .panel-body, .panel-success > .panel-footer + .panel-collapse > .card-body, .panel-success > .card-footer + .panel-collapse > .card-body {
     border-bottom-color: #18BC9C; }
 
 .panel-info {
   border-color: #3498DB; }
-  .panel-info > .panel-heading {
+  .panel-info > .panel-heading, .panel-info > .card-heading {
     color: #fff;
     background-color: #3498DB;
     border-color: #3498DB; }
-    .panel-info > .panel-heading + .panel-collapse > .panel-body {
+    .panel-info > .panel-heading + .panel-collapse > .panel-body, .panel-info > .card-heading + .panel-collapse > .panel-body, .panel-info > .panel-heading + .panel-collapse > .card-body, .panel-info > .card-heading + .panel-collapse > .card-body {
       border-top-color: #3498DB; }
-    .panel-info > .panel-heading .badge {
+    .panel-info > .panel-heading .badge, .panel-info > .card-heading .badge {
       color: #3498DB;
       background-color: #fff; }
-  .panel-info > .panel-footer + .panel-collapse > .panel-body {
+  .panel-info > .panel-footer + .panel-collapse > .panel-body, .panel-info > .card-footer + .panel-collapse > .panel-body, .panel-info > .panel-footer + .panel-collapse > .card-body, .panel-info > .card-footer + .panel-collapse > .card-body {
     border-bottom-color: #3498DB; }
 
 .panel-warning {
   border-color: #F39C12; }
-  .panel-warning > .panel-heading {
+  .panel-warning > .panel-heading, .panel-warning > .card-heading {
     color: #fff;
     background-color: #F39C12;
     border-color: #F39C12; }
-    .panel-warning > .panel-heading + .panel-collapse > .panel-body {
+    .panel-warning > .panel-heading + .panel-collapse > .panel-body, .panel-warning > .card-heading + .panel-collapse > .panel-body, .panel-warning > .panel-heading + .panel-collapse > .card-body, .panel-warning > .card-heading + .panel-collapse > .card-body {
       border-top-color: #F39C12; }
-    .panel-warning > .panel-heading .badge {
+    .panel-warning > .panel-heading .badge, .panel-warning > .card-heading .badge {
       color: #F39C12;
       background-color: #fff; }
-  .panel-warning > .panel-footer + .panel-collapse > .panel-body {
+  .panel-warning > .panel-footer + .panel-collapse > .panel-body, .panel-warning > .card-footer + .panel-collapse > .panel-body, .panel-warning > .panel-footer + .panel-collapse > .card-body, .panel-warning > .card-footer + .panel-collapse > .card-body {
     border-bottom-color: #F39C12; }
 
 .panel-danger {
   border-color: #E74C3C; }
-  .panel-danger > .panel-heading {
+  .panel-danger > .panel-heading, .panel-danger > .card-heading {
     color: #fff;
     background-color: #E74C3C;
     border-color: #E74C3C; }
-    .panel-danger > .panel-heading + .panel-collapse > .panel-body {
+    .panel-danger > .panel-heading + .panel-collapse > .panel-body, .panel-danger > .card-heading + .panel-collapse > .panel-body, .panel-danger > .panel-heading + .panel-collapse > .card-body, .panel-danger > .card-heading + .panel-collapse > .card-body {
       border-top-color: #E74C3C; }
-    .panel-danger > .panel-heading .badge {
+    .panel-danger > .panel-heading .badge, .panel-danger > .card-heading .badge {
       color: #E74C3C;
       background-color: #fff; }
-  .panel-danger > .panel-footer + .panel-collapse > .panel-body {
+  .panel-danger > .panel-footer + .panel-collapse > .panel-body, .panel-danger > .card-footer + .panel-collapse > .panel-body, .panel-danger > .panel-footer + .panel-collapse > .card-body, .panel-danger > .card-footer + .panel-collapse > .card-body {
     border-bottom-color: #E74C3C; }
 
 .embed-responsive {
@@ -6041,7 +6051,7 @@ input {
   -webkit-box-shadow: none;
   box-shadow: none; }
 
-a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus {
+a.list-group-item.active, a.active.room-list-group-item, a.list-group-item.active:hover, a.active.room-list-group-item:hover, a.list-group-item.active:focus, a.active.room-list-group-item:focus {
   border-color: #ecf0f1; }
 
 a.list-group-item-success.active {
@@ -6089,7 +6099,6 @@ body {
     border-radius: 0px; }
 
 .card, body #container-main .login-form, .card-main {
-  padding: 5px;
   border: 1px solid #95a5a6;
   border-radius: 5px;
   background: white;
@@ -6107,6 +6116,13 @@ body {
 
 .card-lg, .card-main {
   height: 600px; }
+
+.card-heading {
+  padding: 10px;
+  background: #476481;
+  color: #bbcada; }
+  .card-heading .card-title {
+    padding: 5px; }
 
 .btn-facebook, .btn-twitter, .btn-google-plus {
   color: white; }
@@ -6134,13 +6150,47 @@ body {
   .btn-google-plus:active, .btn-google-plus.active {
     background: #c23321; }
 
-#profile-page .profile-column .thumbnail {
+#profile-page .thumbnail {
   border: none; }
 
-#profile-page .profile-column .user-name {
+#profile-page .user-name, #profile-page .user-email {
   font-size: 1.2em; }
 
-#profile-page .profile-column .profile-pic {
-  width: 100px;
+#profile-page .avatar {
   border: 1px solid #b4bcc2;
   border-radius: 5px; }
+
+.room-list-group-item {
+  font-size: 0.8em; }
+  .room-list-group-item .label {
+    margin-left: 5px; }
+
+.rooms-list {
+  overflow-y: scroll;
+  border: 1px solid #b4bcc2;
+  border-radius: 3px; }
+
+#public-rooms {
+  height: 500px; }
+
+#user-rooms-created, #user-rooms-joined {
+  height: 200px; }
+
+nav.navbar {
+  z-index: 1; }
+  nav.navbar a:not(.navbar-brand) {
+    padding: 10px !important; }
+  nav.navbar .dropdown-menu {
+    background: #2C3E50; }
+    nav.navbar .dropdown-menu a {
+      color: #ecf0f1; }
+      nav.navbar .dropdown-menu a:hover {
+        color: #18BC9C; }
+  nav.navbar .navbar-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    border: 1px solid #95a5a6; }
+    nav.navbar .navbar-avatar:hover {
+      opacity: 0.8;
+      cursor: pointer; }

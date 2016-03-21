@@ -1,6 +1,7 @@
 'use strict';
 
 const { join: joinPaths } = require('path');
+const { static : staticAssets } = require('express');
 
 const setupDirectories   = require(joinPaths(__dirname, 'dir'));
 const setupConfig        = require(joinPaths(__dirname, 'config'));
@@ -12,6 +13,7 @@ const setupHandlebars    = require(joinPaths(__dirname, 'handlebars'));
 const setupSass          = require(joinPaths(__dirname, 'sass'));
 const setupRoutes        = require(joinPaths(__dirname, 'routes'));
 const setupErrorHandlers = require(joinPaths(__dirname, 'error-handlers'));
+const setupIO            = require(joinPaths(__dirname, 'io'));
 
 module.exports = function(app) {
   
@@ -41,6 +43,8 @@ module.exports = function(app) {
   // setup static assets
   setupHandlebars(app);
   setupSass(app);
+  app.use(staticAssets(app.get('STATIC_DIR')));
+  app.use(staticAssets(joinPaths(app.get('HOME_DIR'), 'node_modules', 'babel-standalone')));
   
   // setup routes
   setupRoutes(app);
@@ -48,9 +52,13 @@ module.exports = function(app) {
   // setup error handling
   setupErrorHandlers(app);
   
-  // TODO:
+  // setup socket server
+  const ioServer = setupIO(app, db, session);
+  
   return {
+    config,
     db,
-    session
+    session,
+    ioServer
   };
 }

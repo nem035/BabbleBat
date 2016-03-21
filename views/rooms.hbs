@@ -1,0 +1,322 @@
+<div class="modal fade" id="modal-create-room" tabindex="-1" role="dialog" aria-labelledby="create-room-label">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="modal-title" id="create-room-label">New Room</div>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div id="form-group-room-name" class="form-group">
+            <label for="input-room-name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="input-room-name" placeholder="Room name">
+              <span id="input-room-name-help" class="help-block invisible"></span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Cancel
+        </button>
+        <button id="btn-save-room" type="button" class="btn btn-primary">
+          <i class="fa fa-fw fa-save"></i> Save 
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="rooms-page">
+  <div class="animated bounceInLeft col-sm-12 col-md-6 col-lg-6">
+    <div class="card card-sm">
+      <div class="card-heading">
+        <div class="card-title">
+          Created rooms
+          <i id="user-rooms-created-spinner" class="fa fa-fw fa-spinner fa-spin"></i>                  
+          <button id="btn-create-room" 
+                  type="button" 
+                  class="btn btn-sm btn-primary pull-right"
+                  data-toggle="modal" 
+                  data-target="#modal-create-room">
+            <i class="fa fa-fw fa-plus-circle"></i> Create Room
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul id="user-rooms-created" class="rooms-list list-group hidden"></ul>
+        <div id="user-rooms-created-no-content" class="no-content hidden">
+          <div class="text-muted animated fadeIn" role="alert">
+            <i class="fa fa-info-circle"></i> 
+            You haven't created any rooms yet.
+            <p> 
+              Click the create button to start creating a room.
+            </p> 
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="card card-sm">
+      <div class="card-heading">
+        <div class="card-title">
+          Joined rooms
+          <i id="user-rooms-joined-spinner" class="fa fa-fw fa-spinner fa-spin"></i>                            
+        </div>
+      </div>
+      <div class="card-body">
+        <ul id="user-rooms-joined" class="rooms-list list-group hidden"></ul>
+        <div id="user-rooms-joined-no-content" class="no-content hidden">
+          <div class="text-muted animated fadeIn" role="alert">
+            <i class="fa fa-info-circle"></i> 
+            You haven't joined any rooms yet.
+            <p> 
+              Select a room from the list to the right to join.
+            </p> 
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="animated bounceInRight col-sm-12 col-md-6 col-lg-6">
+    <div class="card-main">
+      <div class="card-heading">
+        <div class="card-title">
+          Public rooms 
+          <i id="public-rooms-spinner" class="fa fa-fw fa-spinner fa-spin"></i>          
+        </div>
+      </div>
+      <div class="card-body">
+        <ul id="public-rooms" class="rooms-list list-group hidden"></ul>
+        <div id="public-rooms-no-content" class="no-content hidden">
+          <div class="text-muted animated fadeIn" role="alert">
+            <i class="fa fa-info-circle"></i> No public rooms available.
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  'use strict';
+  
+  $(() => {
+    
+    const socket = io('{{socketUrl}}');
+      
+    socket.on('connect', () => {
+      console.debug('Connection to server established');
+      socket.emit('setUserId', '{{user.id}}');
+    });
+    
+    const $publicRooms               = $('#public-rooms');
+    const $publicRoomsNoContent      = $('#public-rooms-no-content');
+    const $publicRoomsSpinner        = $('#public-rooms-spinner');
+    
+    const $userRoomsCreated          = $('#user-rooms-created');
+    const $userRoomsCreatedNoContent = $('#user-rooms-created-no-content');
+    const $userRoomsCreatedSpinner   = $('#user-rooms-created-spinner');
+    
+    const $userRoomsJoined           = $('#user-rooms-joined');
+    const $userRoomsJoinedNoContent  = $('#user-rooms-joined-no-content');
+    const $userRoomsJoinedSpinner    = $('#user-rooms-joined-spinner');    
+    
+    const $modalCreateRoom           = $('#modal-create-room');
+    const $formGroupRoomName         = $('#form-group-room-name');
+    const $inputRoomName             = $('#input-room-name');
+    const $btnSaveRoom               = $('#btn-save-room');
+    
+    const $createRoomError           = $('#input-room-name-help');
+    
+    $inputRoomName.on('keypress', () => {
+        $formGroupRoomName.removeClass('has-error has-success');
+        $createRoomError.text('');
+        $createRoomError.removeClass('fadeIn').addClass('invisible');
+    });
+      
+    $btnSaveRoom.click(() => {
+      let name = $inputRoomName.val();
+      if (name !== '') {
+        socket.emit('createRoom', name);
+      } else {
+        createRoomErrorHandler({ message: 'Missing name' });
+      }
+    });
+    
+    function resetModalCreateRoom() {
+      $modalCreateRoom.modal('hide');
+      $inputRoomName.val('');
+    }
+    
+    function getRoomTemplate(room) {
+      return `<li id="${room._id}" class="room-list-group-item animated bounceIn row">
+                <div class="col-sm-2 action-btn">
+                </div>
+                <div class="col-sm-4">
+                  <span class="room-name">${room.name}</span>
+                </div>
+                <div class="col-sm-6">
+                  <div class="pull-right">
+                    <span class="label label-info">
+                      <i class="fa fa-fw fa-users"></i> 
+                      Total <span class="users-count">${room.users.length}</span>
+                    </span>
+                    <span class="label label-success">
+                      <i class="fa fa-fw fa-users"></i> 
+                      Online <span class="users-count-online">2</span>
+                    </span>
+                  </div>
+                </div>
+              </li>`;
+    }
+    
+    function getActionBtn(roomId, type) {
+      let btn, template;
+      
+      if (type === 'join') {
+        template = `<a id="join-${roomId}" href="/rooms/${roomId}" class="btn btn-xs btn-primary">Join</a>`;
+        btn = $(template);
+      } else if (type === 'leave') {
+        template = `<button id="leave-${roomId}" type="button" class="btn btn-xs btn-warning">Leave</button>`;
+        btn = $(template);
+        btn.click(leaveRoom)
+      } else if (type === 'remove') {
+        template = `<button id="remove-${roomId}" type="button" class="btn btn-xs btn-danger">Remove</button>`;
+        btn = $(template);
+        btn.click(removeRoom);
+      }
+      
+      return btn;
+    }
+    
+    function leaveRoom() {
+      const roomId = $(this).attr('id').replace('leave-', '');
+      socket.emit('leaveRoom', roomId);
+    }
+    
+    function removeRoom() {
+      const roomId = $(this).attr('id').replace('remove-', '');
+      socket.emit('removeRoom', roomId);
+    }
+    
+    function renderRooms($container, rooms, actionBtnType) {
+      
+      function getRoom(rooms, $item) { 
+        let room = null;
+        
+        rooms.some(room => {
+          if (room._id === $item.attr('id')) {
+            return true;
+          }
+        });
+        
+        return room;
+      }
+      
+      function appendActionBtn($item, roomId) {
+        $item.find('.action-btn').append(getActionBtn(roomId, actionBtnType));
+      }
+      
+      const existenceMap = {};
+      
+      // delete rooms that still exist in the dom
+      // but have been removed from the server
+      $container.find('.room-list-group-item').each((idx, item) => {
+        const $item = $(item);
+        const room = getRoom(rooms, $item);            
+        // if current list item represents a non-existing room
+        // remove the list item
+        if (!room) {
+          $item.remove();
+        } 
+        // otherwise cache the rooms existence
+        // and rerender the room if any of its properties have changed
+        else {
+          const roomId = room._id;
+          
+          existenceMap[roomId] = true;
+          
+          const usersCount = parseInt($item.find('.users-count').text());
+          const name = $item.find('.room-name').text();
+          
+          if (usersCount !== room.users.length || name !== room.name) {
+            $item.replaceWith(getRoomTemplate(room));
+            appendActionBtn($item, roomId)
+          }
+        }        
+      });
+      
+      // add all remaining rooms that aren't already rendered
+      rooms.forEach(room => {   
+        const roomId = room._id;     
+        if (!existenceMap[roomId]) {
+          $container.append(getRoomTemplate(room));
+          appendActionBtn($container.find(`#${roomId}`), roomId);
+        }
+      });
+    }
+    
+    function onRoomsUpdates(
+      $container, 
+      $containerNoContent, 
+      $containerSpinner, 
+      actionBtnType,
+      rooms) {
+        
+      // show the spinner
+      $containerSpinner.removeClass('hidden');
+              
+      if (rooms.length > 0) {
+        $container.removeClass('hidden');
+        $containerNoContent.addClass('hidden');
+        renderRooms($container, rooms, actionBtnType);
+        $container.animate({ scrollTop: $container.prop("scrollHeight")}, 1000);
+      } else {
+        $container.addClass('hidden');
+        $containerNoContent.removeClass('hidden');
+      }
+      
+      // hide the spinner
+      $containerSpinner.addClass('hidden');
+    }
+    
+    socket.on('resPublicRooms', (rooms) => {
+      onRoomsUpdates(
+        $publicRooms,
+        $publicRoomsNoContent,
+        $publicRoomsSpinner,
+        'join',
+        rooms
+      );
+    });
+    
+    socket.on('resUserRooms', (created, joined) => {
+      resetModalCreateRoom();
+      // update created rooms
+      onRoomsUpdates(
+        $userRoomsCreated,
+        $userRoomsCreatedNoContent,
+        $userRoomsCreatedSpinner,
+        'remove',
+        created
+      );
+
+      // update joined rooms
+      onRoomsUpdates(
+        $userRoomsJoined,
+        $userRoomsJoinedNoContent,
+        $userRoomsJoinedSpinner,
+        'leave',
+        joined
+      );      
+    });
+    
+    function createRoomErrorHandler(err) {
+      $formGroupRoomName.addClass('has-error');
+      $createRoomError.text(err.message);
+      $createRoomError.removeClass('invisible').addClass('fadeIn');
+      $inputRoomName.trigger('focus');
+    }
+    
+    socket.on('createRoomErr', createRoomErrorHandler);
+  });
+</script>

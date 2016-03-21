@@ -39,6 +39,7 @@ module.exports = function(app) {
   app.locals.appTitle = APP_TITLE;
   app.set('port', PORT);
   app.set('host', HOST);
+  app.set('hostUrl', `${HOST}:${PORT}`);
   app.set('dbUri', DB_URI);
   app.set('sessionSecret', SESSION_SECRET);
   

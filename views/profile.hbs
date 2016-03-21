@@ -1,63 +1,62 @@
 <div id="profile-page">
-  <div class="profile-column animated bounceInLeft col-sm-12 col-md-4 col-lg-4">
-    <div class="card-main">
-      <div class="thumbnail text-center">
-        {{#if user.avatar}}
-          <img class="profile-pic" src={{user.avatar}} alt="Profile Picture">
-        {{else}}
-          <i class="fa fa-fw fa-5x fa-user"></i>
-        {{/if}}
-        <div class="caption">
-          {{#if user.name}}
+  <div class="card card-sm animated bounceInUp col-sm-12 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+    <div class="thumbnail text-center">
+      {{#if user.avatar}}
+        <img class="avatar" src={{user.avatar}} alt="User Avatar">
+      {{else}}
+        <i class="fa fa-fw fa-5x fa-user"></i>
+      {{/if}}
+    </div>
+    <hr />
+    <div class="container-fluid">
+      <div class="row">
+        {{#if user.name}}
+          <div class="col-sm-2">
+            <i class="fa fa-fw fa-user"></i>
+          </div>
+          <div class="col-sm-10">
             <span class="user-name">{{user.name}}</span>
-          {{else}}
-            <div class="text-warning">
-              <i class="fa fa-alert"></i> 
-              Missing username
-            </div>
-          {{/if}}
-        </div>
+          </div>
+        {{else}}
+          <div class="text-warning">
+            <i class="fa fa-alert"></i> 
+            Missing username
+          </div>
+        {{/if}}
       </div>
-      <hr />
-      <div class="profile-info">
-        <div class="col-sm-3">
-          Email:
-        </div>
-        <div class="col-sm-9">
-          {{#if user.email}}
-            {{user.email}}
-          {{else}}
-            <span class="text-warning">Missing</span>
-          {{/if}}
-        </div>
+      <div class="row">
+        {{#if user.email}}
+          <div class="col-sm-2">
+            <i class="fa fa-fw fa-envelope"></i>
+          </div>
+          <div class="col-sm-10">
+            <span class="user-email">{{user.email}}</span>
+          </div>
+        {{else}}
+          <div class="text-warning">
+            <i class="fa fa-alert"></i> 
+            Missing email
+          </div>
+        {{/if}}
       </div>
     </div>
+    <hr />
+    <div class="container-fluid text-center">
+      <a class="btn btn-primary" href="/rooms">
+        <i class="fa fa-fw fa-comments "></i> Rooms
+      </a>
+    </div>
   </div>
-  <div class="profile-column animated bounceInRight col-sm-12 col-md-8 col-lg-8">
-      <div class="card-main">
-        
-      </div>
   </div>
 </div>
 <script type="text/javascript">
-  // Test for the ugliness.
-  if (window.location.hash == '#_=_'){
-
-    // Check if the browser supports history.replaceState.
-    if (history.replaceState) {
-
-      // Keep the exact URL up to the hash.
-      var cleanHref = window.location.href.split('#')[0];
-
-      // Replace the URL in the address bar without messing with the back button.
-      history.replaceState(null, null, cleanHref);
-
-    } else {
-
-      // Well, you're on an old browser, we can get rid of the _=_ but not the #.
-      window.location.hash = '';
-
-    }
-
-  }
+  'use strict';
+  $(() => {
+    const socket = io('{{socketUrl}}');
+      
+    socket.on('connect', () => {
+      console.log('Connection to server established');
+    });
+      
+  });
 </script>

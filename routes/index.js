@@ -1,13 +1,23 @@
 'use strict';
 const { join: joinPaths } = require('path');
-const routesMap = require(joinPaths(__dirname, 'routes-map'));
-const registerRoutes = require(joinPaths(__dirname, 'register-routes'));
-const passport = require('passport');
+
+const regularRoutes = ['home', 'login', 'logout'];
+const authRoutes    = ['profile'];
 
 module.exports = function(app, router) {
   
-  registerRoutes(app, router, routesMap);
+  regularRoutes.forEach(routeName => {
+    const { path, handler } = require(joinPaths(__dirname, routeName));
+    router.get(path, handler);
+  });
   
-  // error handler route
-  router.use(routesMap['404']);
+  // register auth routes
+  require(joinPaths(__dirname, 'auth'))(app, router);
+  
+  // error handler (404) route
+  router.use((req, res, next) => {
+    res.status(404);
+    res.render('404');
+  });
+  
 };
