@@ -10,7 +10,7 @@ module.exports = function(app, ensureAuthenticated) {
         (req, res, next) => {
           res.render('room', {
             user      : req.user,
-            socketUrl : `${app.get('hostUrl')}/room/${roomId}`
+            // socketUrl : `${app.get('hostUrl')}/room/${roomId}`
           });
         }
       ]

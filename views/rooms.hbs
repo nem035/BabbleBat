@@ -149,12 +149,12 @@
     
     function getRoomTemplate(room) {
       return `<li id="${room._id}" class="room-list-group-item animated bounceIn row">
-                <div class="col-sm-2 action-btn">
+                <div class="col-sm-1 action-btn">
+                </div>
+                <div class="col-sm-7">
+                  <a href="/rooms/${room._id}" class="room-name">${room.name}</a>
                 </div>
                 <div class="col-sm-4">
-                  <span class="room-name">${room.name}</span>
-                </div>
-                <div class="col-sm-6">
                   <div class="pull-right">
                     <span class="label label-info">
                       <i class="fa fa-fw fa-users"></i> 
@@ -173,14 +173,14 @@
       let btn, template;
       
       if (type === 'join') {
-        template = `<a id="join-${roomId}" href="/rooms/${roomId}" class="btn btn-xs btn-primary">Join</a>`;
+        template = `<a id="join-${roomId}" href="/rooms/${roomId}" class="btn btn-xs btn-primary hint--bottom" data-hint="Join"><i class="fa fa-fw fa-plus-circle"></i></a>`;
         btn = $(template);
       } else if (type === 'leave') {
-        template = `<button id="leave-${roomId}" type="button" class="btn btn-xs btn-warning">Leave</button>`;
+        template = `<button id="leave-${roomId}" type="button" class="btn btn-xs btn-warning hint--bottom" data-hint="Leave"><i class="fa fa-fw fa-reply"></i></button>`;
         btn = $(template);
         btn.click(leaveRoom)
       } else if (type === 'remove') {
-        template = `<button id="remove-${roomId}" type="button" class="btn btn-xs btn-danger">Remove</button>`;
+        template = `<button id="remove-${roomId}" type="button" class="btn btn-xs btn-danger hint--bottom" data-hint="Remove"><i class="fa fa-fw fa-remove"></i></button>`;
         btn = $(template);
         btn.click(removeRoom);
       }

@@ -19,23 +19,27 @@ module.exports = function(db, io) {
       
       const { userId } = socket; 
       
-      const created = [], joined = [];  
+      const createdRooms = [], 
+            joinedRooms = [],
+            publicRooms = [];  
+            
       rooms.forEach(
         room => {
           const hasCreated = room.owner === userId;
           const hasJoined = !hasCreated && room.users.indexOf(userId) !== -1;
           
           if (hasCreated) {
-            created.push(room);
-          }
-          if (hasJoined) {
-            joined.push(room);
+            createdRooms.push(room);
+          } else if (hasJoined) {
+            joinedRooms.push(room);
+          } else {
+            publicRooms.push(room);
           }
         }
       );
 
-      socket.emit('resPublicRooms', rooms);
-      socket.emit('resUserRooms', created, joined);
+      socket.emit('resPublicRooms', publicRooms);
+      socket.emit('resUserRooms', createdRooms, joinedRooms);
     }, errorHandler);
   };
   

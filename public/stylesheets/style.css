@@ -6099,6 +6099,7 @@ body {
     border-radius: 0px; }
 
 .card, body #container-main .login-form, .card-main {
+  padding: 0;
   border: 1px solid #95a5a6;
   border-radius: 5px;
   background: white;
@@ -6175,6 +6176,73 @@ body {
 
 #user-rooms-created, #user-rooms-joined {
   height: 200px; }
+
+#chat-window {
+  border: 2px solid #ecf0f1;
+  border-bottom-width: 0;
+  border-radius: 3px;
+  font-size: 0.8em;
+  color: #95a5a6;
+  padding: 5px; }
+  #chat-window #chat-list {
+    padding: 0;
+    height: 450px;
+    overflow: scroll; }
+    #chat-window #chat-list .chat-message {
+      list-style: none;
+      margin: 10px;
+      margin-bottom: 40px; }
+      #chat-window #chat-list .chat-message .avatar {
+        width: 80px;
+        text-align: center; }
+        #chat-window #chat-list .chat-message .avatar img {
+          width: 40px;
+          height: 40px;
+          border-radius: 100%; }
+      #chat-window #chat-list .chat-message .message {
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+        color: #2C3E50;
+        box-shadow: 1px 1px 0px 0px #ecf0f1; }
+        #chat-window #chat-list .chat-message .message .content {
+          min-height: 40px;
+          padding: 5px;
+          font-size: 1em; }
+      #chat-window #chat-list .chat-message.by-me .message {
+        margin-right: 80px;
+        background: #f7fbfe;
+        border-color: #e1f0fa;
+        color: #196090; }
+      #chat-window #chat-list .chat-message.by-them .message {
+        margin-left: 80px;
+        background: #fef7ec;
+        border-color: #fdedd4;
+        color: #976008; }
+
+#chat-input-group input {
+  border-radius: 0 !important;
+  border-bottom-right-radius: 5px !important; }
+
+#chat-input-group .btn-success {
+  border-radius: 0 !important;
+  border-bottom-left-radius: 5px !important; }
+
+#chat-input-group .btn-default {
+  border-radius: 0 !important; }
+
+#emoji-dropdown-menu {
+  width: 300px;
+  padding: 3px;
+  height: 30px; }
+
+.chat-icon {
+  height: 30px;
+  width: 30px; }
+
+.chat-icon:hover {
+  background: #ecf0f1;
+  cursor: pointer; }
 
 nav.navbar {
   z-index: 1; }
