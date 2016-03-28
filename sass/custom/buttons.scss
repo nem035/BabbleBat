@@ -1,0 +1,36 @@
+%btn-social {
+  color: white;
+  &:hover,
+  &:active,
+  &.active {
+    color: $gray-lighter;
+  }
+}
+
+@mixin btn-social-bg($color) {
+  &:hover {
+    background: darken($color, 5%);
+  }
+  &:active,
+  &.active {
+    background: darken($color, 10%);
+  }
+}
+
+.btn-facebook {
+  @extend %btn-social;
+  background: $facebook-color;
+  @include btn-social-bg($facebook-color)
+}
+
+.btn-twitter {
+  @extend %btn-social;
+  background: $twitter-color;
+  @include btn-social-bg($twitter-color)
+}
+
+.btn-google-plus {
+  @extend %btn-social;
+  background: $googleplus-color;
+  @include btn-social-bg($googleplus-color)
+}

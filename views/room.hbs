@@ -1,76 +1,82 @@
 <div id="room-page">
-  <div class="card card-lg animated bounceInUp col-sm-12">
-    <div class="card-heading">
-      <span id="room-name">
-        {{room.name}}
-      </span>
+  <div class="animated bounceInLeft col-sm-3">
+    <div class="card card-lg animate bounceInLeft">
+      <div class="card-heading">
+        Users
+      </div>
+      <div class="card-body">
+        <ul id="users-list" class="list-group">
+          <i class="fa fa-3x fa-fw fa-spin fa-spinner text-info"></i>
+        </ul>
+      </div>
     </div>
-    <div class="card-body">
-      <div class="row" style="margin:0">
-        <div class="col col-sm-2">
-          <ul id="users-list" class="list-group">
-            <i class="fa fa-3x fa-fw fa-spin fa-spinner text-info"></i>
+  </div>
+  <div class="animated bounceInRight col-sm-9">
+    <div class="card card-lg animated bounceInUp">
+      <div class="card-heading">
+        <div id="room-name">
+          {{room.name}} 
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="chat-window">
+          <ul id="chat-list">
+            <li class="chat-message by-me">
+              <div class="user-avatar-wrapper pull-right">
+                <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
+                <div class="user-name">
+                  Me
+                </div>
+              </div>
+              <div class="message">
+                <div class="content">
+                  Hey how are you?
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </li>
+            <li class="chat-message by-them">
+              <div class="user-avatar-wrapper pull-left">
+                <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
+                <div class="user-name">
+                  Aleksandar
+                </div>
+              </div>
+              <div class="message">
+                <div class="content">
+                  Not bad man, how about you?
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </li>
           </ul>
         </div>
-        <div class="col col-sm-10">
-          <div id="chat-window">
-            <ul id="chat-list">
-              <li class="chat-message by-me">
-                <div class="user-avatar-wrapper pull-right">
-                  <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
-                  <div class="user-name">
-                    Me
-                  </div>
-                </div>
-                <div class="message">
-                  <div class="content">
-                    Hey how are you?
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-              </li>
-              <li class="chat-message by-them">
-                <div class="user-avatar-wrapper pull-left">
-                  <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
-                  <div class="user-name">
-                    Aleksandar
-                  </div>
-                </div>
-                <div class="message">
-                  <div class="content">
-                    Not bad man, how about you?
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
+        <div id="chat-input-group" class="input-group input-group-md">
+          <div class="input-group-btn">
+            <button class="btn btn-md btn-success" type="button">Send</button>
+          </div>
+          <div class="input-group-btn dropup">
+            <button type="button" class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-smile-o"></i></button>
+            <ul id="emoji-dropdown-menu" class="dropdown-menu">
+              <li class="">
+                <span class="chat-icon">😁</span>
+                <span class="chat-icon">😂</span>
+                <span class="chat-icon">😃</span>
+                <span class="chat-icon">😄</span>
+                <span class="chat-icon">😅</span>
+                <span class="chat-icon">😆</span>
+                <span class="chat-icon">😉</span>
+                <span class="chat-icon">😋</span>
+                <span class="chat-icon">😘</span>
+                <span class="chat-icon">😜</span>
+                <span class="chat-icon">😝</span>
+                <span class="chat-icon">😡</span>
               </li>
             </ul>
           </div>
-          <div id="chat-input-group" class="input-group input-group-md">
-            <div class="input-group-btn">
-              <button class="btn btn-md btn-success" type="button">Send</button>
-            </div>
-            <div class="input-group-btn dropup">
-              <button type="button" class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-smile-o"></i></button>
-              <ul id="emoji-dropdown-menu" class="dropdown-menu">
-                <li class="">
-                  <span class="chat-icon">😁</span>
-                  <span class="chat-icon">😂</span>
-                  <span class="chat-icon">😃</span>
-                  <span class="chat-icon">😄</span>
-                  <span class="chat-icon">😅</span>
-                  <span class="chat-icon">😆</span>
-                  <span class="chat-icon">😉</span>
-                  <span class="chat-icon">😋</span>
-                  <span class="chat-icon">😘</span>
-                  <span class="chat-icon">😜</span>
-                  <span class="chat-icon">😝</span>
-                  <span class="chat-icon">😡</span>
-                </li>
-              </ul>
-            </div>
-            <input id="input-message" type="text" class="input-md form-control" placeholder="Enter message...">
-          </div>
+          <input id="input-message" type="text" class="input-md form-control" placeholder="Enter message...">
         </div>
+      </div>
     </div>
   </div>
 </div>
@@ -101,7 +107,6 @@
     let connectionList;  
       
     // DOM
-    const $roomName  = $('#room-name');
     const $usersList = $('#users-list');
     
     function getStatusClass(user) {

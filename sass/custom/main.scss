@@ -1,0 +1,34 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,400,600');
+
+body {
+	background: $gray;	
+  color: $gray-darker;
+	font-size: 16px;
+	line-height: 23px;
+	font-family: 'Open Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+
+  #container-main {
+    margin: 20px;
+    padding: 0;		
+    
+    .login-form {
+      @extend .card;
+      @extend .card-md;
+      padding: 20px !important;	
+      height: 100% !important;
+      width: 100%;
+    }
+  }
+
+  nav.navbar {
+    border-radius: 0px;  
+  }
+
+}
+
+.user-avatar {
+  border: 1px solid $gray-light;
+  border-radius: 5px;	
+}
+  

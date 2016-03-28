@@ -1,0 +1,30 @@
+nav.navbar {
+  
+  z-index: 1;
+
+  a:not(.navbar-brand) {
+    padding: 10px !important;	
+  }
+  
+  .dropdown-menu {
+	  background: $brand-primary;
+    a {
+      color: $gray-lighter;
+      &:hover {
+        color: $brand-success;
+      }
+      
+    }
+  }
+  
+  .navbar-avatar {
+    width: 40px;
+    height: 40px;	
+    border-radius: 3px;
+    border: 1px solid $gray;
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+$card-height-xs: 200px;
+$card-height-sm: 300px;
+$card-height-md: 450px;
+$card-height-lg: 600px;
+
+.card {
+  @extend .panel;
+  padding: 0;
+	border: 1px solid $gray;
+  border-radius: 5px;
+	background: white;	
+	box-shadow: 5px 5px 0px 1px $brand-primary;
+  height: $card-height-sm;
+}
+
+.card-xs {
+  height: $card-height-xs;
+}
+
+.card-sm {
+  height: $card-height-sm;
+}
+
+.card-md {
+  height: $card-height-md;
+}
+
+.card-lg {
+  height: $card-height-lg;
+}
+
+.card-main {
+  @extend .card;
+  @extend .card-lg;
+}
+
+.card-heading {
+  @extend .panel-heading;  
+	padding: 10px;	
+  background: lighten($brand-primary, 15%);	
+  color: lighten($brand-primary, 55%);	
+  
+  .card-title {
+    padding: 5px;
+  }
+}
+
+.card-body {
+  @extend .panel-body;
+}
+
+.card-footer {
+  @extend .panel-footer;
+}

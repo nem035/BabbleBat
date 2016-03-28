@@ -1,0 +1,23 @@
+
+.room-list-group-item {
+  @extend .list-group-item;
+ 	font-size: 0.8em;	
+  
+  .label {
+    margin-left: 5px;
+  }
+}
+
+.rooms-list {
+	overflow-y: scroll;
+	border: 1px solid $gray-light;
+	border-radius: 3px;
+}
+
+#public-rooms {
+  	height: 500px;	
+}
+
+#user-rooms-created, #user-rooms-joined {
+  height: 200px;
+}
