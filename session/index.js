@@ -13,11 +13,7 @@ module.exports = function(app, dbConnection) {
   const isProduction  = app.get('isProduction');
   
   const settings = {
-    secret            : sessionSecret,
-    resave            : false,
-    // Forces a session that is "uninitialized" to be saved to the store. 
-    // A session is uninitialized when it is new but not modified. 
-    saveUninitialized : isDevelopment
+    secret            : sessionSecret
   };
   
   // use our MongoDB connection as the session store
@@ -25,8 +21,14 @@ module.exports = function(app, dbConnection) {
   if (isProduction) {
     settings.store = new MongoStore({
       // make sure we only connect once to the same MongoDB instance
-      mongooseConnection: dbConnection
+      mongooseConnection: dbConnection,
+			stringify: true // make sure all session variables are first converted to strings and then stored in the DB
     });
+  } else if (isDevelopment) {
+    settings.resave = false;
+    // Forces a session that is "uninitialized" to be saved to the store. 
+    // A session is uninitialized when it is new but not modified. 
+    settings.saveUninitialized = true;
   }
   
   

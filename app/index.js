@@ -47,7 +47,7 @@ module.exports = function(app) {
   app.use(staticAssets(joinPaths(app.get('HOME_DIR'), 'node_modules', 'babel-standalone')));
   
   // setup routes
-  setupRoutes(app);
+  setupRoutes(app, db);
   
   // setup error handling
   setupErrorHandlers(app);

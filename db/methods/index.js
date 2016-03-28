@@ -1,23 +1,31 @@
 'use strict';
 
 const { join: joinPaths } = require('path');
+const load = (type, name) => require(joinPaths(__dirname, type, name));
 
-const findById                 = require(joinPaths(__dirname, 'findById'));
-const findOne                  = require(joinPaths(__dirname, 'findOne'));
-const findAll                  = require(joinPaths(__dirname, 'findAll'));
-const createOne                = require(joinPaths(__dirname, 'createOne'));
-const removeOne                = require(joinPaths(__dirname, 'removeOne'));
-const findOrCreateOne          = require(joinPaths(__dirname, 'findOrCreateOne'));
-const updateOne                = require(joinPaths(__dirname, 'updateOne'));
-const findAndUpdateOrCreateOne = require(joinPaths(__dirname, 'findAndUpdateOrCreateOne'));
-
-module.exports = {
-  findById,
-  findOne,
-  findAll,
-  createOne,
-  removeOne,
-  findOrCreateOne,
-  updateOne,
-  findAndUpdateOrCreateOne
-};
+module.exports = function(
+  models, coreMethodNames, modelMethodNames, methodNameBuilder) {
+    
+  // load database methods
+  const coreMethods = coreMethodNames.reduce(
+    (methods, name) => {
+      methods[name] = load('core', name);
+      return methods;
+    }, {}); 
+  
+  // create model-specific methods
+  const modelMethods = modelMethodNames.reduce(
+    (methods, methodName) => {
+      
+      models.forEach(model => {
+        
+        const { modelName } = model;
+        const modelMethodName = methodNameBuilder(modelName, methodName);
+        
+        methods[modelMethodName] = load('model', methodName)(model, coreMethods);
+      });
+      return methods;
+    }, {});
+  
+  return modelMethods;
+}

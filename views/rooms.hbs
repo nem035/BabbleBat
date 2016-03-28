@@ -10,7 +10,7 @@
           <div id="form-group-room-name" class="form-group">
             <label for="input-room-name" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="input-room-name" placeholder="Room name">
+              <input type="text" class="form-control" id="input-room-name" placeholder="Room name" autocomplete="off">
               <span id="input-room-name-help" class="help-block invisible"></span>
             </div>
           </div>
@@ -105,8 +105,13 @@
       
     socket.on('connect', () => {
       console.debug('Connection to server established');
-      socket.emit('setUserId', '{{user.id}}');
     });
+    
+    // set the page title programatically
+    const title = document.title;
+    const pipeIndex = title.indexOf('|');
+    const subIndex = pipeIndex != -1 ? pipeIndex : title.length;
+    document.title  = title.substring(0, subIndex).trim() + ' | Rooms';
     
     const $publicRooms               = $('#public-rooms');
     const $publicRoomsNoContent      = $('#public-rooms-no-content');
@@ -136,7 +141,7 @@
     $btnSaveRoom.click(() => {
       let name = $inputRoomName.val();
       if (name !== '') {
-        socket.emit('createRoom', name);
+        socket.emit('reqCreateRoom', name);
       } else {
         createRoomErrorHandler({ message: 'Missing name' });
       }
@@ -190,12 +195,12 @@
     
     function leaveRoom() {
       const roomId = $(this).attr('id').replace('leave-', '');
-      socket.emit('leaveRoom', roomId);
+      socket.emit('reqLeaveRoom', roomId);
     }
     
     function removeRoom() {
       const roomId = $(this).attr('id').replace('remove-', '');
-      socket.emit('removeRoom', roomId);
+      socket.emit('reqRemoveRoom', roomId);
     }
     
     function renderRooms($container, rooms, actionBtnType) {
@@ -317,6 +322,6 @@
       $inputRoomName.trigger('focus');
     }
     
-    socket.on('createRoomErr', createRoomErrorHandler);
+    socket.on('reqCreateRoomErr', createRoomErrorHandler);
   });
 </script>

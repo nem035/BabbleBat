@@ -1,23 +1,23 @@
 <div id="room-page">
   <div class="card card-lg animated bounceInUp col-sm-12">
     <div class="card-heading">
-      <span class="room-name">
-        ROOM NAME PLACEHOLDER
+      <span id="room-name">
+        {{room.name}}
       </span>
     </div>
     <div class="card-body">
       <div class="row" style="margin:0">
         <div class="col col-sm-2">
-          <div id="users-list">
-            list of users
-          </div>
+          <ul id="users-list" class="list-group">
+            <i class="fa fa-3x fa-fw fa-spin fa-spinner text-info"></i>
+          </ul>
         </div>
         <div class="col col-sm-10">
           <div id="chat-window">
             <ul id="chat-list">
               <li class="chat-message by-me">
-                <div class="avatar pull-right">
-                  <img src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
+                <div class="user-avatar-wrapper pull-right">
+                  <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
                   <div class="user-name">
                     Me
                   </div>
@@ -30,8 +30,8 @@
                 </div>
               </li>
               <li class="chat-message by-them">
-                <div class="avatar pull-left">
-                  <img src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
+                <div class="user-avatar-wrapper pull-left">
+                  <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
                   <div class="user-name">
                     Aleksandar
                   </div>
@@ -39,48 +39,6 @@
                 <div class="message">
                   <div class="content">
                     Not bad man, how about you?
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-              </li>
-              <li class="chat-message by-me">
-                <div class="avatar pull-right">
-                  <img src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
-                  <div class="user-name">
-                    Me
-                  </div>
-                </div>
-                <div class="message">
-                  <div class="content">
-                    Good good, chillin, killin.
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-              </li>
-              <li class="chat-message by-me">
-                <div class="avatar pull-right">
-                  <img src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
-                  <div class="user-name">
-                    Me
-                  </div>
-                </div>
-                <div class="message">
-                  <div class="content">
-                    :)
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-              </li>
-              <li class="chat-message by-me">
-                <div class="avatar pull-right">
-                  <img src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
-                  <div class="user-name">
-                    Me
-                  </div>
-                </div>
-                <div class="message">
-                  <div class="content">
-                    Wanna go to Space this weekend? I have two tickets.
                   </div>
                   <div class="clearfix"></div>
                 </div>
@@ -118,6 +76,134 @@
 </div>
 <script type="text/javascript">
   $(() => {
+    'use strict';
+
+    const socket     = io('{{socketUrl}}');
+    
+    const roomId     = '{{room._id}}';
+    const roomName   = '{{room.name}}';
+    const roomOwner  = '{{room.owner}}';
+    
+    const userId     = '{{user._id}}';
+    const userName   = '{{user.name}}';
+    const userAvatar = '{{user.avatar}}';
+        
+    // set the page title programatically
+    const title = document.title;
+    const pipeIndex = title.indexOf('|');
+    const subIndex = pipeIndex != -1 ? pipeIndex : title.length;
+    document.title  = title.substring(0, subIndex).trim() + ` | ${roomName}`;
+      
+    // map of existing users this room
+    const userMap = {};
+    
+    //list of active connections in this room
+    let connectionList;  
+      
+    // DOM
+    const $roomName  = $('#room-name');
+    const $usersList = $('#users-list');
+    
+    function getStatusClass(user) {
+      return connectionList.indexOf(user.connection) !== -1 ?
+             'user-online' :
+             'user-offline';
+    }
+    
+    function isOwner(user) {
+      return user._id === roomOwner;
+    }
+    
+    function getUserTemplate(user, statusClass) {
+      return `<li data-user="${user._id}" class="animated bounceInDown list-group-item row">
+                <div class="col-sm-4">
+                  <img class="user-avatar" src="${user.avatar}">
+                  <i class="${statusClass} user-status fa fa-fw fa-circle"></i>
+                </div>
+                <div class="col-sm-8">
+                  <span class="user-name">
+                    ${user.name}
+                    ${isOwner(user) ? '<span class="text-info">Owner</span>' : ''}
+                  </span>
+                </div>
+             </li>`;
+    }
+    
+    function addUserToList(user, statusClass) {
+      
+      // user sees self as the first user in the list
+      if (user._id === userId) {
+        $usersList.prepend(
+          getUserTemplate(user, statusClass)
+        );
+      } else {
+        $usersList.append(
+          getUserTemplate(user, statusClass)
+        );
+      }
+    }
+    
+    function addUser(user) {
+      addUserToList(user, getStatusClass(user));
+      userMap[user._id] = true;
+    }
+    
+    function updateUserStatus(user, status) {
+      let add = `user-${status}`, 
+          rem;
+          
+      if (status === 'online') {
+        rem = 'user-offline';
+      } else {
+        rem = 'user-online';
+      }
+      
+      $(`[data-user=${user._id}] .user-status`)
+        .removeClass(rem)
+        .addClass(add);
+    }
+      
+    socket.on('connect', () => {
+      console.debug('Connection to server established');
+      socket.emit('reqJoinRoom', roomId);
+    });
+    
+    // update connections list
+    function updateConnections(res) {
+      connectionList = res.connections;
+    }
+    
+    socket.on('resJoinRoom', (res) => {
+
+      updateConnections(res);
+      
+      // clear the users list
+      $usersList.empty();
+      
+      // add all users
+      res.users.forEach(user => {
+        addUser(user);
+      });
+    });
+    
+    socket.on('userJoinedRoom', (res) => {
+      updateConnections(res);
+      
+      const user = res.user;
+      
+      // if user is a new member, add him/her to the list
+      // otherwise update his/her status
+      if (!userMap[user._id]) {
+        addUser(user);
+      } else {
+        updateUserStatus(user, 'online');
+      }
+      
+    });
+    
+    socket.on('userLeftRoom', (res) => {
+      updateUserStatus(res.user, 'offline');
+    });
     
     $('#emoji-dropdown-menu').on('click', '.chat-icon', function() {
       const icon = $(this).text();

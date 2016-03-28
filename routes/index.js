@@ -4,7 +4,7 @@ const { join: joinPaths } = require('path');
 const regularRoutes = ['home', 'login', 'logout'];
 const authRoutes    = ['profile'];
 
-module.exports = function(app, router) {
+module.exports = function(app, db, router) {
   
   regularRoutes.forEach(routeName => {
     const { path, handler } = require(joinPaths(__dirname, routeName));
@@ -12,7 +12,7 @@ module.exports = function(app, router) {
   });
   
   // register auth routes
-  require(joinPaths(__dirname, 'auth'))(app, router);
+  require(joinPaths(__dirname, 'auth'))(app, db, router);
   
   // error handler (404) route
   router.use((req, res, next) => {

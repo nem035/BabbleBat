@@ -1,126 +1,78 @@
 'use strict';
 
+const { join: joinPaths } = require('path');
+const { getUserId, splitRooms } = require(joinPaths(__dirname, 'helpers'));
+
 module.exports = function(db, io) {
   
   const {
-    methods : dbMethods,
-    models  : dbModels
+    methods : {
+      roomFindAll,
+      roomFindSingle,
+      roomCreateAndAddUserSingle,
+      roomRemoveSingle,
+      unlinkUserAndRoom,
+      roomRemoveCompleteSingle
+    }
   } = db;
   
-  const roomModel = dbModels['room'];
-  const userModel = dbModels['user'];
-  
   const errorHandler = (err) => {
-    console.err(err);
+    console.log(err);
   };
-  
-  const showAllRooms = (socket) => {
-    dbMethods.findAll(roomModel).then(rooms => {
+    
+ // queries the database for all rooms,
+ // splits the rooms into categories
+ // and notifies the users
+  const emitAllRooms = (socket, shouldBroadcast) => {
+    roomFindAll().then(rooms => {
       
-      const { userId } = socket; 
+      if (shouldBroadcast) {
+        socket.broadcast.emit('resPublicRooms', rooms);
+      }
       
-      const createdRooms = [], 
-            joinedRooms = [],
-            publicRooms = [];  
-            
-      rooms.forEach(
-        room => {
-          const hasCreated = room.owner === userId;
-          const hasJoined = !hasCreated && room.users.indexOf(userId) !== -1;
-          
-          if (hasCreated) {
-            createdRooms.push(room);
-          } else if (hasJoined) {
-            joinedRooms.push(room);
-          } else {
-            publicRooms.push(room);
-          }
-        }
-      );
-
+      const userId = getUserId(socket); 
+        
+      const { 
+        createdRooms, 
+        joinedRooms, 
+        publicRooms 
+      } = splitRooms(userId, rooms);
+      
       socket.emit('resPublicRooms', publicRooms);
       socket.emit('resUserRooms', createdRooms, joinedRooms);
     }, errorHandler);
   };
   
-  const broadcastAllRooms = (socket) => {
-    dbMethods.findAll(roomModel).then(rooms => {
-      showAllRooms(socket);
-      socket.broadcast.emit('resPublicRooms', rooms);
-    }, errorHandler);
-  };
-  
   io.of('/rooms').on('connection', socket => {
     
-    socket.on('setUserId', (userId) => {
-      socket.userId = userId;
-      showAllRooms(socket);
-    });
+    emitAllRooms(socket);
        
-    socket.on('createRoom', name => {
-      dbMethods.findOne(roomModel, { name }).then(
-        (room) => {
-          if (!room) {
-            const owner = socket.userId;
-            dbMethods.createOne(roomModel, {
-              name,
-              owner,
-              users: [ owner ]
-            }).then(
-              (room) => {
-                dbMethods.updateOne(
-                  userModel, 
-                  { _id: owner },
-                  { $push: { rooms: room._id.toString() }}
-                ).then(
-                  res => broadcastAllRooms(socket), 
-                  errorHandler
-                );
-              },
-              errorHandler
-            );
-          } else {
-            socket.emit('createRoomErr', {
-              message: 'Name already taken'
-            });
-          }
-        }
-      ), errorHandler; 
+    // creates a room with the given name
+    // and adds the room id into the user's rooms array
+    socket.on('reqCreateRoom', name => {
+      const owner = getUserId(socket);
+      roomCreateAndAddUserSingle({
+        name,
+        owner,
+        users: [ owner ]
+      }, owner).then(() => {
+        emitAllRooms(socket, true);
+      }).catch(errorHandler);
     });
     
-    socket.on('leaveRoom', id => {
-      dbMethods.updateOne(
-        roomModel, 
-        { _id: id },
-        { $pull: { users: socket.userId }}
-      ).then(
-        res => showAllRooms(socket), 
-        errorHandler
-      );
+    // remove the link between a user and a room
+    socket.on('reqLeaveRoom', roomId => {
+      const userId = getUserId(socket);
+      unlinkUserAndRoom(userId, roomId).then(() => {
+        emitAllRooms(socket, true);
+      }, errorHandler);
     });
-    
-    socket.on('removeRoom', roomId => {
-      dbMethods.findById(roomModel, roomId).then(
-        (room) => {
-          room.users.forEach(userId => {
-            dbMethods.updateOne(
-              userModel, 
-              { _id: userId },
-              { $pull: { rooms: roomId }}
-            ).then(
-              (res) => {
-                dbMethods.removeOne(roomModel, { _id: roomId }).then(
-                  res => {
-                    broadcastAllRooms(socket);
-                  },
-                  errorHandler
-                );
-              },
-              errorHandler);
-          });
-        },
-        errorHandler
-      );
+        
+    // removes the room and unlinks it from all of its users
+    socket.on('reqRemoveRoom', roomId => {
+      roomRemoveCompleteSingle(roomId).then(res => {
+        emitAllRooms(socket, true);
+      }, errorHandler);
     });
   });
 }

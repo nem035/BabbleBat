@@ -1,19 +1,19 @@
 'use strict';
 
-module.exports = function(app, ensureAuthenticated) {
+module.exports = function(app, db) {
+  
+  const profileRouteHandler = 
+    (req, res, next) => {
+      res.render('profile', {
+        user      : req.user,
+        socketUrl : `${app.get('hostUrl')}/profile`
+      });
+  };
   
   return {
     'get': {
       path    : '/profile',
-      handler : [
-        ensureAuthenticated,
-        (req, res, next) => {
-          res.render('profile', {
-            user      : req.user,
-            socketUrl : `${app.get('hostUrl')}/profile`
-          });
-        }
-      ]
+      handlers : [ profileRouteHandler ]
     }
   };
 }

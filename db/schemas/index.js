@@ -2,10 +2,14 @@
 
 const { join: joinPaths } = require('path');
 
-module.exports = function(Mongoose) {
+module.exports = function(app, Mongoose) {
   
-  return {
-    user: require(joinPaths(__dirname, 'user'))(Mongoose),
-    room: require(joinPaths(__dirname, 'room'))(Mongoose)
-  };
+  const modelNames = require(joinPaths(app.get('DB_DIR'), 'modelNames'));
+  const schemas = {};
+  
+  modelNames.forEach(name => {    
+    schemas[name] = require(joinPaths(__dirname, name))(Mongoose);;
+  })
+  
+  return schemas;
 }

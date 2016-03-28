@@ -13,8 +13,10 @@ const {
 module.exports = function(app, config, db) {
   
   const {
-    methods : dbMethods,
-    models  : dbModels
+    methods : {
+      userFindSingle,
+      userFindOrCreateSingle
+    }
   } = db;
   
   // invoked when auth process ends
@@ -26,14 +28,13 @@ module.exports = function(app, config, db) {
   // 
   passport.deserializeUser((id, done) => {
     // find the user using the mongo id
-    dbMethods.findById(dbModels['user'], id)
-              .then(user => {
-                done(null, user)
-              })
-              .catch(error => {
-                console.log('Error when deserializing a user');
-                console.log(error);
-              });
+    userFindSingle(id).then(user => {
+      done(null, user)
+    })
+    .catch(error => {
+      console.log('Error when deserializing a user');
+      console.log(error);
+    });
   });
   
   // Find a user in the local db using profile.id
@@ -41,7 +42,6 @@ module.exports = function(app, config, db) {
   // Else, create a user in the local db and return it
   const authProcessorCallback = (accessToken, refreshToken, profile, done) => {
     
-    const userModel = dbModels['user'];
     const { 
       id, 
       displayName: name, 
@@ -68,7 +68,7 @@ module.exports = function(app, config, db) {
     // TODO: use findAndUpdateOrCreateOne
     // to properly sync login accross various accounts
     // using users email
-    dbMethods.findOrCreateOne(userModel, findQuery, createQuery)
+    userFindOrCreateSingle(findQuery, createQuery)
     .then(user => {
       done(null, user);
     }).catch(error => {

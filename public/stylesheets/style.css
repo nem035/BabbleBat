@@ -6098,6 +6098,10 @@ body {
   body nav.navbar {
     border-radius: 0px; }
 
+.user-avatar {
+  border: 1px solid #b4bcc2;
+  border-radius: 5px; }
+
 .card, body #container-main .login-form, .card-main {
   padding: 0;
   border: 1px solid #95a5a6;
@@ -6157,10 +6161,6 @@ body {
 #profile-page .user-name, #profile-page .user-email {
   font-size: 1.2em; }
 
-#profile-page .avatar {
-  border: 1px solid #b4bcc2;
-  border-radius: 5px; }
-
 .room-list-group-item {
   font-size: 0.8em; }
   .room-list-group-item .label {
@@ -6177,6 +6177,17 @@ body {
 #user-rooms-created, #user-rooms-joined {
   height: 200px; }
 
+.user-avatar {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px; }
+
+.user-offline {
+  color: #222222; }
+
+.user-online {
+  color: #18BC9C; }
+
 #chat-window {
   border: 2px solid #ecf0f1;
   border-bottom-width: 0;
@@ -6192,13 +6203,9 @@ body {
       list-style: none;
       margin: 10px;
       margin-bottom: 40px; }
-      #chat-window #chat-list .chat-message .avatar {
+      #chat-window #chat-list .chat-message .user-avatar-wrapper {
         width: 80px;
         text-align: center; }
-        #chat-window #chat-list .chat-message .avatar img {
-          width: 40px;
-          height: 40px;
-          border-radius: 100%; }
       #chat-window #chat-list .chat-message .message {
         border-width: 1px;
         border-style: solid;

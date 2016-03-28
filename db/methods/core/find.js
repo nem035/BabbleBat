@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function(model, id) {
+module.exports = function(model, query) {
   return new Promise((resolve, reject) => {
-    model.find({}, (error, record) => {
+    model.find(query, (error, record) => {
       if (error) {
         reject(error);
       } else {
