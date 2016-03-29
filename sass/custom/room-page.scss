@@ -69,7 +69,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 2em;	
+      font-size: 1.5em;	
     }
     
     .chat-message {
@@ -98,16 +98,16 @@
       
       &.by-me .message {
         margin-right: 80px;		
-        background: lighten($brand-info, 45%);
-        border-color: lighten($brand-info, 40%);
-        color: darken($brand-info, 20%);
+        background: lighten($brand-warning, 45%);
+        border-color: lighten($brand-warning, 40%);
+        color: darken($brand-warning, 20%);
       }
       
       &.by-them .message {
         margin-left: 80px;
-        background: lighten($brand-warning, 45%);
-        border-color: lighten($brand-warning, 40%);
-        color: darken($brand-warning, 20%);
+        background: lighten($brand-info, 45%);
+        border-color: lighten($brand-info, 40%);
+        color: darken($brand-info, 20%);
       }
     }
   }

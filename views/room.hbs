@@ -156,6 +156,11 @@
       connectionList = connections;
     }
     
+    function scrollToNewestMessage() {
+      const scrollTop = $chatMessages.prop('scrollHeight');
+      $chatMessages.animate({ scrollTop }, 200);
+    }
+    
     function getNoMessagesTemplate() {
       return `<div class="no-messages-box">
                 <i class="fa fa-fw fa-info-circle"></i> 
@@ -167,7 +172,7 @@
       const owner = message.owner;
       
       const isSelf = isMe(owner);
-      return `<li class="chat-message animated bounceIn ${isSelf ? 'by-me' : 'by-them'}">
+      return `<li data-id="message._id" class="chat-message animated bounceIn ${isSelf ? 'by-me' : 'by-them'}">
                 <div class="user-avatar-wrapper ${isSelf ? 'pull-right' : 'pull-left'}">
                   <img class="user-avatar" src="${owner.avatar}"/>
                   <div class="user-name">
@@ -191,6 +196,7 @@
       messages.forEach(m => {
         renderMessage(m);
       });
+      scrollToNewestMessage();
     }
     
     socket.on('resJoinRoom', (res) => {
@@ -258,13 +264,15 @@
     
     socket.on('receiveMessage', res => {
       renderMessage(res.message);
+      scrollToNewestMessage();
     });
     
     $emojiDropdown.on('click', '.chat-icon', function() {
       const icon = $(this).text();
       const text = $chatInput.val();
+      const spacing = text !== '' ? ' ' : '';
       
-      $chatInput.val(text + icon);
+      $chatInput.val(text + spacing + icon).focus();
     });
   });
 </script> 

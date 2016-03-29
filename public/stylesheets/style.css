@@ -6230,7 +6230,7 @@ body {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 2em; }
+      font-size: 1.5em; }
     #chat-window #chat-messages .chat-message {
       list-style: none;
       margin: 10px;
@@ -6250,14 +6250,14 @@ body {
           font-size: 1em; }
       #chat-window #chat-messages .chat-message.by-me .message {
         margin-right: 80px;
-        background: #f7fbfe;
-        border-color: #e1f0fa;
-        color: #196090; }
-      #chat-window #chat-messages .chat-message.by-them .message {
-        margin-left: 80px;
         background: #fef7ec;
         border-color: #fdedd4;
         color: #976008; }
+      #chat-window #chat-messages .chat-message.by-them .message {
+        margin-left: 80px;
+        background: #f7fbfe;
+        border-color: #e1f0fa;
+        color: #196090; }
 
 #chat-input-group input {
   border-radius: 0 !important;

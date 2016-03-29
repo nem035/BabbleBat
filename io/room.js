@@ -93,7 +93,11 @@ module.exports = function(db, io) {
       
       const newMessage = {
         _id: TEMP_MESSAGES.length,
-        owner: userId,
+        owner: {
+          _id    : userId,
+          name   : 'MISSING',
+          avatar : '/images/user_placeholder.png' 
+        },
         room: roomId,
         content
       };
