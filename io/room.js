@@ -6,6 +6,8 @@ const { getUserId } = require(joinPaths(__dirname, 'helpers'));
 
 module.exports = function(db, io) {
 
+  const TEMP_MESSAGES = [];
+
   const {
     methods : {
       linkAndConnectUserAndRoom,
@@ -32,7 +34,7 @@ module.exports = function(db, io) {
     
     // notify to all sockets (except the originating one) 
     // that a user joined
-    socket.broadcast.to(roomId).emit('userJoinedRoom', {
+    socket.to(roomId).emit('userJoinedRoom', {
       user,
       connections
     });
@@ -40,7 +42,8 @@ module.exports = function(db, io) {
     // notify the joined user that he joined the room successfully
     socket.emit('resJoinRoom', {
       users,
-      connections
+      connections,
+      messages: TEMP_MESSAGES
     });
   }
   
@@ -55,12 +58,14 @@ module.exports = function(db, io) {
 			disconnectUserAndRoom(userId, roomId, socketId).then(
         ([room, user]) => {
           
+          socket.leave(roomId);
+          
           // clear the roomId
           delete socket.roomId;
           
           // notify to all sockets (except the originating one) 
           // that a user left
-          socket.broadcast.to(roomId).emit('userLeftRoom', {
+          socket.to(roomId).emit('userLeftRoom', {
             user
           });
         }, errorHandler);
@@ -81,6 +86,23 @@ module.exports = function(db, io) {
           );
         }).catch(errorHandler);
         
+    });
+    
+    socket.on('sendMessage', ({roomId, userId, content }) => {
+      // TODO: store the message in the DB
+      
+      const newMessage = {
+        _id: TEMP_MESSAGES.length,
+        owner: userId,
+        room: roomId,
+        content
+      };
+      
+      TEMP_MESSAGES.push(newMessage);
+      
+      // notify everybody of the new message
+      socket.to(roomId).emit('receiveMessage', { message: newMessage });
+      socket.emit('receiveMessage', { message: newMessage });
     });
     
   });

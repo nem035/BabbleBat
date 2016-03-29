@@ -1,6 +1,6 @@
 <div id="room-page">
   <div class="animated bounceInLeft col-sm-3">
-    <div class="card card-lg animate bounceInLeft">
+    <div class="card card-lg animate bounceInDown">
       <div class="card-heading">
         Users
       </div>
@@ -20,40 +20,13 @@
       </div>
       <div class="card-body">
         <div id="chat-window">
-          <ul id="chat-list">
-            <li class="chat-message by-me">
-              <div class="user-avatar-wrapper pull-right">
-                <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
-                <div class="user-name">
-                  Me
-                </div>
-              </div>
-              <div class="message">
-                <div class="content">
-                  Hey how are you?
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </li>
-            <li class="chat-message by-them">
-              <div class="user-avatar-wrapper pull-left">
-                <img class="user-avatar" src="https://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"/>
-                <div class="user-name">
-                  Aleksandar
-                </div>
-              </div>
-              <div class="message">
-                <div class="content">
-                  Not bad man, how about you?
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </li>
+          <ul id="chat-messages">
+            <i class="fa fa-4x fa-fw fa-spin fa-spinner text-info"></i>
           </ul>
         </div>
         <div id="chat-input-group" class="input-group input-group-md">
           <div class="input-group-btn">
-            <button class="btn btn-md btn-success" type="button">Send</button>
+            <button id="chat-send-btn" class="btn btn-md btn-success" type="button">Send</button>
           </div>
           <div class="input-group-btn dropup">
             <button type="button" class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-smile-o"></i></button>
@@ -74,7 +47,7 @@
               </li>
             </ul>
           </div>
-          <input id="input-message" type="text" class="input-md form-control" placeholder="Enter message...">
+          <input id="chat-input" type="text" class="input-md form-control" placeholder="Enter message...">
         </div>
       </div>
     </div>
@@ -107,65 +80,70 @@
     let connectionList;  
       
     // DOM
-    const $usersList = $('#users-list');
+    const $usersList     = $('#users-list');
+    const $chatMessages  = $('#chat-messages');
+    const $chatInput     = $('#chat-input');
+    const $chatSendBtn   = $('#chat-send-btn');
+    const $emojiDropdown = $('#emoji-dropdown-menu')
     
-    function getStatusClass(user) {
-      return connectionList.indexOf(user.connection) !== -1 ?
-             'user-online' :
-             'user-offline';
-    }
+    const getUserStatus = user => 
+      connectionList.indexOf(user.connection) !== -1 ? 
+      'Online' : 'Offline';
     
-    function isOwner(user) {
-      return user._id === roomOwner;
-    }
+    const isOwner = user => user._id === roomOwner;
+    const isMe = user => user._id === userId;
     
-    function getUserTemplate(user, statusClass) {
-      return `<li data-user="${user._id}" class="animated bounceInDown list-group-item row">
-                <div class="col-sm-4">
+    function getUserTemplate(user) {
+      const status = getUserStatus(user);
+      const statusClass = status.toLowerCase();
+      
+      return `<li data-user="${user._id}" class="animated bounceIn user-list-item ${statusClass}">
+                <div class="col-sm-3">
                   <img class="user-avatar" src="${user.avatar}">
-                  <i class="${statusClass} user-status fa fa-fw fa-circle"></i>
+                  <span class="user-status">
+                    ${status}
+                  </span>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-9">
                   <span class="user-name">
                     ${user.name}
-                    ${isOwner(user) ? '<span class="text-info">Owner</span>' : ''}
                   </span>
+                  ${isOwner(user) ? '<span class="text-owner text-warning">Owner</span>' : ''}
                 </div>
              </li>`;
     }
     
-    function addUserToList(user, statusClass) {
+    function addUserToList(user) {
+      
+      const template = getUserTemplate(user);
       
       // user sees self as the first user in the list
-      if (user._id === userId) {
-        $usersList.prepend(
-          getUserTemplate(user, statusClass)
-        );
+      if (isMe(user)) {
+        $usersList.prepend(template);
       } else {
-        $usersList.append(
-          getUserTemplate(user, statusClass)
-        );
+        $usersList.append(template);
       }
     }
     
     function addUser(user) {
-      addUserToList(user, getStatusClass(user));
+      addUserToList(user);
       userMap[user._id] = true;
     }
     
     function updateUserStatus(user, status) {
-      let add = `user-${status}`, 
-          rem;
+      let rem;
           
-      if (status === 'online') {
-        rem = 'user-offline';
+      if (status === 'Online') {
+        rem = 'offline';
       } else {
-        rem = 'user-online';
+        rem = 'online';
       }
       
-      $(`[data-user=${user._id}] .user-status`)
-        .removeClass(rem)
-        .addClass(add);
+      const $user = $(`[data-user=${user._id}]`);
+      const $status = $user.find('.user-status');
+      
+      $user.removeClass(rem).addClass(status.toLowerCase());
+      $status.text(status);
     }
       
     socket.on('connect', () => {
@@ -174,25 +152,69 @@
     });
     
     // update connections list
-    function updateConnections(res) {
-      connectionList = res.connections;
+    function setConnections(connections) {
+      connectionList = connections;
+    }
+    
+    function getNoMessagesTemplate() {
+      return `<div class="no-messages-box">
+                <i class="fa fa-fw fa-info-circle"></i> 
+                Chat is empty
+              </div>`;
+    }
+    
+    function getMessageTemplate(message) {
+      const owner = message.owner;
+      
+      const isSelf = isMe(owner);
+      return `<li class="chat-message animated bounceIn ${isSelf ? 'by-me' : 'by-them'}">
+                <div class="user-avatar-wrapper ${isSelf ? 'pull-right' : 'pull-left'}">
+                  <img class="user-avatar" src="${owner.avatar}"/>
+                  <div class="user-name">
+                    ${isSelf ? 'Me' : owner.name}
+                  </div>
+                </div>
+                <div class="message">
+                  <div class="content">
+                    ${message.content}
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </li>`;
+    }
+    
+    function renderMessage(m) {
+      $chatMessages.append(getMessageTemplate(m));
+    }
+    
+    function renderMessages(messages) {
+      messages.forEach(m => {
+        renderMessage(m);
+      });
     }
     
     socket.on('resJoinRoom', (res) => {
 
-      updateConnections(res);
+      setConnections(res.connections);
+            
+      // add messages
+      $chatMessages.empty();
+      const messages = res.messages;
+      if (messages.length === 0) {
+        $chatMessages.append(getNoMessagesTemplate());
+      } else {
+        renderMessages(messages);
+      }
       
-      // clear the users list
+      // add users
       $usersList.empty();
-      
-      // add all users
       res.users.forEach(user => {
         addUser(user);
       });
     });
     
     socket.on('userJoinedRoom', (res) => {
-      updateConnections(res);
+      setConnections(res.connections);
       
       const user = res.user;
       
@@ -201,20 +223,48 @@
       if (!userMap[user._id]) {
         addUser(user);
       } else {
-        updateUserStatus(user, 'online');
+        updateUserStatus(user, 'Online');
       }
       
     });
     
     socket.on('userLeftRoom', (res) => {
-      updateUserStatus(res.user, 'offline');
+      updateUserStatus(res.user, 'Offline');
     });
     
-    $('#emoji-dropdown-menu').on('click', '.chat-icon', function() {
-      const icon = $(this).text();
-      const text = $('#input-message').val();
+    function sendMessage() {
+      const content = $chatInput.val();
+      if (content !== '') {
+        socket.emit('sendMessage', {
+          roomId,
+          userId,
+          content
+        });
+        
+        // clear the input field
+        $chatInput.val('');
+      }
+    }
+    
+    $chatSendBtn.on('click', sendMessage);
+    
+    $chatInput.on('keyup', (e) => {
+      e.preventDefault();
       
-      $('#input-message').val(text + icon);
+      if (e.which === 13) {
+        sendMessage();
+      } 
+    });
+    
+    socket.on('receiveMessage', res => {
+      renderMessage(res.message);
+    });
+    
+    $emojiDropdown.on('click', '.chat-icon', function() {
+      const icon = $(this).text();
+      const text = $chatInput.val();
+      
+      $chatInput.val(text + icon);
     });
   });
 </script> 

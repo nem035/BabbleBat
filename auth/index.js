@@ -50,7 +50,7 @@ module.exports = function(app, config, db) {
       provider
     } = profile;
     
-    const avatar = extractFirstItemValue(photos);
+    const avatar = extractFirstItemValue(photos) || './images/user_placeholder.png';
     const email = extractFirstItemValue(emails);
     
     const findQuery = buildFindQuery(provider, { 
