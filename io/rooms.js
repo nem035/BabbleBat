@@ -49,12 +49,14 @@ module.exports = function(db, io) {
        
     // creates a room with the given name
     // and adds the room id into the user's rooms array
-    socket.on('reqCreateRoom', name => {
+    socket.on('reqCreateRoom', ({ name }) => {
       const owner = getUserId(socket);
       roomCreateAndAddUserSingle({
         name,
         owner,
-        users: [ owner ]
+        users: [ owner ],
+        isProtected,
+        password
       }, owner).then(() => {
         emitAllRooms(socket, true);
       }).catch(errorHandler);

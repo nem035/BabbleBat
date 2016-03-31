@@ -6,7 +6,7 @@
         <div class="modal-title" id="create-room-label">New Room</div>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <div class="form-horizontal">
           <div id="form-group-room-name" class="form-group">
             <label for="input-room-name" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
@@ -14,7 +14,7 @@
               <span id="input-room-name-help" class="help-block invisible"></span>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -128,22 +128,34 @@
     const $modalCreateRoom           = $('#modal-create-room');
     const $formGroupRoomName         = $('#form-group-room-name');
     const $inputRoomName             = $('#input-room-name');
-    const $btnSaveRoom               = $('#btn-save-room');
+    const $btnSaveRoom               = $('#btn-save-room');    
+    const $inputRoomNameError        = $('#input-room-name-help');
     
-    const $createRoomError           = $('#input-room-name-help');
+    function clearRoomNameError() {
+      $formGroupRoomName.removeClass('has-error has-success');
+      $inputRoomNameError.text('');
+      $inputRoomNameError.removeClass('fadeIn').addClass('invisible');
+    }
+    
+    function inputRoomNameErrorHandler(message) {
+      $formGroupRoomName.addClass('has-error');
+      $inputRoomNameError.text(message);
+      $inputRoomNameError.removeClass('invisible').addClass('fadeIn');
+      $inputRoomName.trigger('focus');
+    }
     
     $inputRoomName.on('keypress', () => {
-        $formGroupRoomName.removeClass('has-error has-success');
-        $createRoomError.text('');
-        $createRoomError.removeClass('fadeIn').addClass('invisible');
+        clearRoomNameError();
     });
       
     $btnSaveRoom.click(() => {
-      let name = $inputRoomName.val();
+      const name = $inputRoomName.val();
+      const password = $inputRoomPassword.val();
+      
       if (name !== '') {
-        socket.emit('reqCreateRoom', name);
+        socket.emit('reqCreateRoom', { name });
       } else {
-        createRoomErrorHandler({ message: 'Missing name' });
+        inputRoomNameErrorHandler('Missing name');
       }
     });
     
@@ -315,13 +327,6 @@
       );      
     });
     
-    function createRoomErrorHandler(err) {
-      $formGroupRoomName.addClass('has-error');
-      $createRoomError.text(err.message);
-      $createRoomError.removeClass('invisible').addClass('fadeIn');
-      $inputRoomName.trigger('focus');
-    }
     
-    socket.on('reqCreateRoomErr', createRoomErrorHandler);
   });
 </script>

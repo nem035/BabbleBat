@@ -91,7 +91,7 @@
       'Online' : 'Offline';
     
     const isOwner = user => user._id === roomOwner;
-    const isMe = user => user._id === userId;
+    const isMe = user => user._id === userId || user.id === userId;
     
     function getUserTemplate(user) {
       const status = getUserStatus(user);
@@ -168,15 +168,17 @@
               </div>`;
     }
     
+    const firstName = name => name.split(/\s+/g).shift();
+    
     function getMessageTemplate(message) {
-      const owner = message.owner;
+      const user = message.user;
       
-      const isSelf = isMe(owner);
+      const isSelf = isMe(user);
       return `<li data-id="message._id" class="chat-message animated bounceIn ${isSelf ? 'by-me' : 'by-them'}">
                 <div class="user-avatar-wrapper ${isSelf ? 'pull-right' : 'pull-left'}">
-                  <img class="user-avatar" src="${owner.avatar}"/>
+                  <img class="user-avatar" src="${user.avatar}"/>
                   <div class="user-name">
-                    ${isSelf ? 'Me' : owner.name}
+                    ${isSelf ? 'Me' : firstName(user.name)}
                   </div>
                 </div>
                 <div class="message">
@@ -196,6 +198,11 @@
       messages.forEach(m => {
         renderMessage(m);
       });
+      scrollToNewestMessage();
+    }
+    
+    function renderNewMessageAndScrollToIt(message) {
+      renderMessage(message);
       scrollToNewestMessage();
     }
     
@@ -241,11 +248,18 @@
     function sendMessage() {
       const content = $chatInput.val();
       if (content !== '') {
-        socket.emit('sendMessage', {
+        
+        const newMessage = {
+          user: {
+            name   : userName,
+            avatar : userAvatar
+          },
           roomId,
-          userId,
           content
-        });
+        };
+        
+        socket.emit('sendMessage', newMessage);
+        renderNewMessageAndScrollToIt(newMessage);
         
         // clear the input field
         $chatInput.val('');
@@ -263,8 +277,7 @@
     });
     
     socket.on('receiveMessage', res => {
-      renderMessage(res.message);
-      scrollToNewestMessage();
+      renderNewMessageAndScrollToIt(res.message);
     });
     
     $emojiDropdown.on('click', '.chat-icon', function() {

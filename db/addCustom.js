@@ -46,7 +46,8 @@ module.exports = function(methods, models) {
     roomCreateSingle,
     roomRemoveSingle,
     userFindMulti,
-    roomFindMulti
+    roomFindMulti,
+    messageFindMulti
   } = methods;
   
   // add a single room to a user
@@ -173,5 +174,17 @@ module.exports = function(methods, models) {
   // find all rooms that have a user as a member
   methods.roomFindAllWithUser = (userId) => {
     return roomFindMulti({ users: userId });
+  }
+  
+  // find all messages that belong to a room
+  methods.messageFindAllInRoom = (roomId) => {
+    return messageFindMulti({ room: roomId });
+  }
+  
+  methods.roomFindAllUsersAndMessages = (roomId) => {
+    return Promise.all([
+      methods.userFindAllInRoom(roomId),
+      methods.messageFindAllInRoom(roomId)
+    ]);
   }
 }

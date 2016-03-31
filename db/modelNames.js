@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = ['User', 'Room'];
+module.exports = ['User', 'Room', 'Message'];

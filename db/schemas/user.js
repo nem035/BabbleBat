@@ -2,7 +2,7 @@
 
 const authProviders = ['facebook', 'twitter'];
 
-module.exports = function(Mongoose) {
+module.exports = function(Mongoose, options) {
   const schema = {
     name       : String,
     avatar     : String,
@@ -20,5 +20,5 @@ module.exports = function(Mongoose) {
     }
   });
   
-  return new Mongoose.Schema(schema);
+  return new Mongoose.Schema(schema, options);
 }
