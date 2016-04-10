@@ -54,9 +54,7 @@ module.exports = function(db, io) {
       roomCreateAndAddUserSingle({
         name,
         owner,
-        users: [ owner ],
-        isProtected,
-        password
+        users: [ owner ]
       }, owner).then(() => {
         emitAllRooms(socket, true);
       }).catch(errorHandler);

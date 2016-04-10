@@ -57,7 +57,9 @@
   $(() => {
     'use strict';
 
-    const socket     = io('{{socketUrl}}');
+    const socket     = io('{{socketUrl}}', {
+      transports: ['websocket']
+    });
     
     const roomId     = '{{room._id}}';
     const roomName   = '{{room.name}}';

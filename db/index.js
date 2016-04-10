@@ -15,6 +15,10 @@ module.exports = function(app) {
     console.log('MongoDB Error: ', error);
   });
   
+  Mongoose.connection.on('open', res => {
+    console.log('MongoDB Connection open: ', res);
+  });
+  
   // obtain all schemas
   const schemas = require(joinPaths(__dirname, 'schemas'))(app, Mongoose);
   

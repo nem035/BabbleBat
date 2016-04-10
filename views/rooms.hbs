@@ -101,7 +101,9 @@
   
   $(() => {
     
-    const socket = io('{{socketUrl}}');
+    const socket = io('{{socketUrl}}', {
+      transports: ['websocket']
+    });
       
     socket.on('connect', () => {
       console.debug('Connection to server established');
@@ -150,7 +152,6 @@
       
     $btnSaveRoom.click(() => {
       const name = $inputRoomName.val();
-      const password = $inputRoomPassword.val();
       
       if (name !== '') {
         socket.emit('reqCreateRoom', { name });

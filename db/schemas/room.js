@@ -5,9 +5,7 @@ module.exports = function(Mongoose, options) {
     name        : String,
     users       : Array, // array of user ids
     connections : Array, // array of socket ids
-    owner       : String,
-    isProtected : Boolean,
-    password    : String
+    owner       : String
   };
   
   return new Mongoose.Schema(schema, options);
