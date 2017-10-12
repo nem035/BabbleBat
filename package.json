@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --harmony_destructuring index.js"
+    "start": "node --harmony_destructuring index.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "babble",
@@ -23,7 +25,7 @@
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.13.0",
-    "file-stream-rotator": "0.0.6",
+    "file-stream-rotator": "0.0.7",
     "font-awesome": "^4.5.0",
     "lodash": "^4.6.1",
     "mongoose": "^4.4.7",
@@ -35,11 +37,13 @@
     "passport-twitter": "^1.0.4",
     "ramda": "^0.19.1",
     "redis": "^2.6.0-0",
-    "socket.io": "^1.4.5",
-    "socket.io-redis": "^1.0.0"
+    "socket.io": "^2.0.2",
+    "socket.io-redis": "^5.1.0",
+    "snyk": "^1.42.6"
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.6",
     "morgan": "^1.7.0"
-  }
+  },
+  "snyk": true
 }
